@@ -8,5 +8,8 @@ Las prácticas o tp son más para autoevaluación. Se evalúan solo los parciale
 
 La dinámica va a ser de 'clase invertida', donde el material se debe leer en casa y en clase se realiza la práctica
 
+- Patrones: En la lógica se puede dar casos donde ciertos sucesos se repitan en base a un sentido
+- Gramática: Es necesario analizar las oraciones en base a su sintáxis 
+
 Fuera de eso la clase fue un repaso del TVU
 
