@@ -113,3 +113,26 @@ salir:
 | Modifica: | COMPLETAR |
 | Retorna: | El valor absoluto en R0, donde el primer bit se cambió por un 0 | 
 
+### Integrador:
+#Aca implementen el test
+#ACLARACIÓN: Si bien toda rutina debe terminar con un RET, no lo añadan en el test, puede fallar el simulador si el programa main (en este caso main) tiene un RET pero nunca hacemos CALL main
+test: 
+
+```js
+[assemble: 0x1000]
+checkBonus: CMP R3, R4
+            JLE up
+            CALL gameover
+            JMP fin
+            up: CALL levelUp
+
+fin: RET
+
+[assemble: 0x2000]
+gameover: MOV R7, 0xDEAD
+          RET
+
+levelUp: MOV R7, 0x1AA9
+         RET
+```
+
