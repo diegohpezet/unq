@@ -113,26 +113,110 @@ salir:
 | Modifica: | COMPLETAR |
 | Retorna: | El valor absoluto en R0, donde el primer bit se cambió por un 0 | 
 
-### Integrador:
-#Aca implementen el test
-#ACLARACIÓN: Si bien toda rutina debe terminar con un RET, no lo añadan en el test, puede fallar el simulador si el programa main (en este caso main) tiene un RET pero nunca hacemos CALL main
-test: 
-
 ```js
-[assemble: 0x1000]
-checkBonus: CMP R3, R4
-            JLE up
-            CALL gameover
-            JMP fin
-            up: CALL levelUp
+absolute: AND R0, 0x7FFF  // 0111 1111 1111 1111
+          RET
+```
+
+9- Implementar la rutina xor en funcion de su documentacion:
+| xor | <!----> |
+|--------|---------|
+| Requiere: | Un valor en SM(16) en el registro R0 |
+| Modifica: | COMPLETAR |
+| Retorna: | El valor absoluto en R0, donde el primer bit se cambió por un 0 |
+```js
+//Xor: (-a^b) + (a^-b)
+xor: MOV R3, R6     //Copio las variables y las niego
+     MOV R4, R7
+     NOT R3
+     NOT R4 
+     AND R3, R7     //(-a^b)
+     AND R6, R4     //(a^-b)
+     OR R3, R6
+     MOV R7, R3
+     RET
+```
+
+10- Programar una rutina de test para Xor
+```js
+testXor: MOV R6, 0x0005
+         MOV R7, 0x0003
+         CALL xor
+         CMP R7, 0x0006
+         JE funcionaBien
+         MOV R0, 0x0000
+         JMP fin
+
+funcionaBien: MOV R0, 0x0001
+              JMP fin
 
 fin: RET
+```
 
-[assemble: 0x2000]
-gameover: MOV R7, 0xDEAD
+11- Implementar la rutina invImp que dada una cadena de 16 bits en R1, invierta el valor de las posiciones impares. Utilice maascaras y operaciones logicas. Para resolver este ejercicio es necesario
+descomponer el problema
+```js
+invImpar: MOV R7, 0xAAAA
+          CALL xor
           RET
+```
 
-levelUp: MOV R7, 0x1AA9
+12- Implementar la rutina opuesto, que calcule el opuesto aditivo del  numero almacenado en el registro R2 sin usar SUB. Dicho numero esta representado en CA2(16)
+```js
+opuesto: NOT R1
+         ADD R1, 0x0001
          RET
 ```
 
+13- . Un registro meteorologico es aquel donde sus bits indican la  recipitacion en cada dıa, para una estacion meteorologica determinada, durante 14 dıas (los 14 bits de la derecha). En el sistema occidental se indica con 0 si llovio y con un 1 el caso contrario. En el sistema oriental se indica al inverso. Por ejemplo, la cadena 0011001100110011 se convierte ası: 0000110011001100 (notar que los primeros 2 bits siempre estan en cero). Implementar la rutina occidentalAOriental segun la documentacion:
+```js
+meteoOriental: OR R3, 0xC000
+               NOT R3
+               RET
+```
+
+14- Implementar la rutina diasDeLluvia segun la documentacion:
+| diasDeLluvia | <!----> |
+|----------|---------|
+| Requiere: | Un registro meteorologico en sistema oriental en R6 |
+| Modifica: | COMPLETAR |
+| Retorna: | En R2 la cantidad de días de lluvia registrados |
+
+**Pista**: puede usar la rutina desplazarIzq que tiene la siguiente documentacion:
+
+| desplazarIzq | <!----> |
+|---------|---------|
+| Requiere: | Una cadena en R0 |
+| Modifica: | - |
+| Retorna: | En R1 desplaza los bits de la cadena contenida en R0 un lugar hacia la izquierda |
+
+
+```js
+EscenarioInicial:
+R6: 0000110011001100
+
+ResultadoEsperado:
+R2 <- 0x0006  
+
+[assembly: 0xA000]
+diasDeLluvia: MOV R1, R6 
+              MOV R2, 0x0000  // Contador de unos
+              MOV R3, 0X0000  // Contador del bucle
+
+repetir: MOV R0, R1  // Prepara para el siguiente bucle
+         COMP R2, 0x00010
+         JLE comparar
+         JMP fin
+
+comparar: ADD R3, 0x0001  // Agrega una vuelta al bucle
+          AND R1, 0x0001
+          COMP R1, 0x0001
+          JE sumarUno
+          JMP repetir
+
+sumarUno: ADD R2, 0x0001
+          JMP repetir
+
+fin: RET
+
+```
