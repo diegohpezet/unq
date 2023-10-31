@@ -28,7 +28,7 @@
 
 6. Suponer un sistema BSS(10,4)
     * ¿Cuantos numeros se pueden representar?
-        - Máximo num dividido la cantidad de saltos que se realizan: **63,9375 / 0,0625 = 1023**
+        - 2<sup>10</sup> = 1024
     * ¿Cual es la resolucion del sistema?
         - La resolución es 2<sup>-4</sup>, que equivale a 0,0625
     * ¿Cuales son el maximo y el minimo numero representables?
@@ -39,7 +39,7 @@
         - Estos son 0,9375 (0000001111) y 0,0625 (0000000001)
 
 7. Resonder las preguntas del ejercicio anterior para un sistema SM (10,4)
-    * 31,9375 / 0,0625 = 511
+    * 2<sup>10</sup>-1 = 1023
     * Mínimo: I<sub>SM(10,4)</sub>(1111111111) = -1*(2<sup>4</sup> + 2<sup>3</sup> + 2<sup>2</sup> + 2<sup>1</sup> + 2<sup>0</sup> + 2<sup>-1</sup> + 2<sup>-2</sup> + 2<sup>-3</sup> + 2<sup>-4</sup>) = -1*(16 + 8 + 4 + 2 + 1 + 0,5 + 0,25 + 0,125 + 0,0625) = -1*(31,9375) = -31,9375<br>
     Máximo: I<sub>SM(10,4)</sub>(0111111111) = 1*(2<sup>4</sup> + 2<sup>3</sup> + 2<sup>2</sup> + 2<sup>1</sup> + 2<sup>0</sup> + 2<sup>-1</sup> + 2<sup>-2</sup> + 2<sup>-3</sup> + 2<sup>-4</sup>) = 1*(16 + 8 + 4 + 2 + 1 + 0,5 + 0,25 + 0,125 + 0,0625) = 1*(31,9375) = 31,9375<br><br>
     Rango SM<sub>(10,4)</sub>: (-31,9375, 31,975)
