@@ -65,13 +65,13 @@
     - ¿Qué error se obtiene a representar el **1,3**?
         - Se obtiene 0,2, puesto que la resolucion es 0,5 y el error absoluto no puede superar la mitad de la misma
     - ¿Cuál es el **máximo error absoluto** que puede ocurrir al representar un valor? Ojo: dentro del rango representable
-        - 0,2
+        - Resolucion/2 = 2.5
     - ¿Cual es el rango del sistema?
         - Rango BSS(4,1): (0, 7,5)
 
 11. ¿Cuál es el **máximo error absoluto** que puede ocurrir al representar un valor en cada uno de los siguientes sistemas?
-    - BSS(4,2)
-    - BSS(4,3)
+    - BSS(4,2): 0.25/2 = 0.125
+    - BSS(4,3): 0.125/2 = 0.0625
 
 12. Supongamos que se desea utilizar un sistema de punto fijo SM(X,Y) para representar números entre -10 y 10. Se pretende ademas que el error absoluto sea menor a 0.2. ¿Cuales son los mínimos X,Y que satisfacen estos requerimientos?
 
