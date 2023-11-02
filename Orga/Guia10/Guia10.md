@@ -94,20 +94,50 @@
 # Punto Flotante
 
 17. Completar la tabla 2 con la interpretacion de las cadenas en cada sistema indicado
+    
+|  Cod  | BSS(3) | BSS(3,1) | SM(3,1) |
+| :---: | :----: | :------: | :-----: |
+| 0000  |   0    |   0,0    |   0,0   |
+| 0001  |   1    |   0,5    |   0,5   |
+| 0010  |   2    |   1,0    |   1,0   |
+| 0011  |   3    |   1,5    |   1,5   |
+| 0100  |   4    |   2,0    |   2,0   |
+| 0101  |   5    |   2,5    |   2,5   |
+| 0110  |   6    |   3,5    |   3,0   |
+| 0111  |   7    |   4,0    |   3,5   |
+| 1000  |   8    |   4,5    |   -0    |
+| 1001  |   9    |   5,0    |  -0,5   |
+| 1010  |   10   |   5,5    |  -1,0   |
+| 1011  |   11   |   6,0    |  -1,5   |
+| 1100  |   12   |   6,5    |  -2,0   |
+| 1101  |   13   |   7,0    |  -2,5   |
+| 1110  |   14   |   7,5    |  -3,0   |
+| 1111  |   15   |   8,0    |  -3,5   |
 
-18. Comparar los sistemas de la tabla 2 a partir de una cadena a eleccion
+18.  Comparar los sistemas de la tabla 2 a partir de una cadena a eleccion
 
-19. Para cada sistema de la tabla 2 calcular rango, resolucion maxima y resolucion mınima.
+|  Cod  | BSS(3) | BSS(3,1) | SM(3,1) |
+| :---: | :----: | :------: | :-----: |
+| 1011  |   11   |   6,0    |  -1,5   |
 
-20. Calcular rango, resolucion mınima y resolucion maxima para un sistema con mantisa en BSS(5) y exponente en BSS(3).
+19.  Para cada sistema de la tabla 2 calcular rango, resolucion maxima y resolucion mınima.
 
-21. Buscar un contraejemplo para refutar lo siguiente: _En punto flotante es posible representar todos los numeros reales contenidos en el rango._
+| Sistema  |    Rango    | Resolución maxima | Resolucion minima |
+| :------: | :---------: | :---------------: | :---------------: |
+|  BSS(3)  |   [0; 7]    |                   |                   |
+| BSS(3,1) |   [0; 8]    |                   |                   |
+| SM(3,1)  | [-3,5; 3,5] |                   |                   |
 
-22. Completar la tabla 3 interpretando las cadenas en cada uno de los sistemas indicados.
-23. Para cada sistema de la tabla 3 calcular rango, resolucion maxima y resolucion mınima.
+20.  Calcular rango, resolucion mınima y resolucion maxima para un sistema con mantisa en BSS(5) y exponente en BSS(3).
 
-24. Interpretar las siguientes cadenas aplicando el siguiente formato: [ mantisa: SM(9,7) ][ exponente: SM(7)]
+21.  Buscar un contraejemplo para refutar lo siguiente: _En punto flotante es posible representar todos los numeros reales contenidos en el rango._
+
+22.  Completar la tabla 3 interpretando las cadenas en cada uno de los sistemas indicados.
+
+23.  Para cada sistema de la tabla 3 calcular rango, resolucion maxima y resolucion mınima.
+
+24.  Interpretar las siguientes cadenas aplicando el siguiente formato: [ mantisa: SM(9,7) ][ exponente: SM(7)]
     - 1110 1110 0101 1111
     - 0010 0001 1000 1100
 
-25. Calcular rango, resolucion mınima y resolucion maxima para el sistema del ejercicio anterior
+25.  Calcular rango, resolucion mınima y resolucion maxima para el sistema del ejercicio anterior
