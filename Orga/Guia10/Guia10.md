@@ -173,8 +173,8 @@ e: BSS(2) / m: BSS(2,2)
 - Emax = I<sub>BSS(2)</sub>(11) = 3
 
 - Rango = [0 x 2<sup>3</sup>; 0,75 x 2<sup>3</sup>] = [0; 6]
-- Resolucion máxima = 
-- Resolucion mínima = 
+- Resolucion máxima = I<sub>BSS(2,2)</sub>(01) * 2<sup>3</sup> = 2<sup>-2</sup> * 2<sup>3</sup> = 0.25 * 8 = 2
+- Resolucion mínima = I<sub>BSS(2,2)</sub>(01) * 2<sup>0</sup> = 2<sup>-2</sup> * 2<sup>0</sup> = 0.25 * 1 = 0.25
 
 e: CA2(2) / m: BSS(2,2) 
 - Mmin = I<sub>BSS(2,2)</sub>(00) = 0,0
