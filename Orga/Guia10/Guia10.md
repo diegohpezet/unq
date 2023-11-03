@@ -203,3 +203,17 @@ e: CA2(2) / m: BSS(2,2)
 |   Rango   | Resolución maxima | Resolucion minima |
 | :-------: | :---------------: | :---------------: |
 | [0; 3968] | Resolución maxima | Resolucion minima |
+
+## Ejercicios integradores
+
+1. ¿Qué problema representa el error relativo? ¿Es lo mismo un error cerca del 0 qué lejos de el? 
+  - El error relativo representa la distancia de un número respecto a otro. Mientras más cerca del 0 este un valor, más importante es su error
+
+2. ¿Como soluciona el punto flotante esto? ¿Como se expresa un valor en punto flotante? 
+  - El punto flotante trabaja con enteros para luego, mediante una formula desplazar la coma sobre ese numero
+
+3. ¿Como es la resolución en punto flotante? ¿Se comporta de la misma manera que la resolución en punto fijo? 
+  - La resolución en punto flotante es variable, puesto que al tratarse de exponentes la distancia entre dos valores se va incrementando a medida que el exponente aumenta
+
+4. ¿Qué se empobrece respecto a punto fijo? 
+  - En escalas más grandes se pierden valores debido al aumento exponencial
