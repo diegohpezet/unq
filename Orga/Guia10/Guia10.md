@@ -129,15 +129,77 @@
 | SM(3,1)  | [-3,5; 3,5] |                   |                   |
 
 20.  Calcular rango, resolucion mınima y resolucion maxima para un sistema con mantisa en BSS(5) y exponente en BSS(3).
+- Mmin = I<sub>BSS(5)</sub>(00000) = 0
+- Mmax = I<sub>BSS(5)</sub>(11111) = 16 + 8 + 4 + 2 + 1 = 31
+- Emax = I<sub>BSS(3)</sub>(111) = 4 + 2 + 1 = 7
+- Rango = [0 x 2<sup>7</sup>; 31 x 2<sup>7</sup>] = [0; 3968]
+  
+|   Rango   | Resolución maxima | Resolucion minima |
+| :-------: | :---------------: | :---------------: |
+| [0; 3968] | Resolución maxima | Resolucion minima |
 
-21.  Buscar un contraejemplo para refutar lo siguiente: _En punto flotante es posible representar todos los numeros reales contenidos en el rango._
+21.    Buscar un contraejemplo para refutar lo siguiente: _En punto flotante es posible representar todos los numeros reales contenidos en el rango._
 
-22.  Completar la tabla 3 interpretando las cadenas en cada uno de los sistemas indicados.
+- Imaginar un sistema de punto flotante con mantisa en BSS(2) y exponente en BSS(2). Si se intenta representar el valor 5 se puede notar que no hay cadena que lo represente a pesar de que el rango sea [0, 24]. *Fuente: pag 143*
 
-23.  Para cada sistema de la tabla 3 calcular rango, resolucion maxima y resolucion mınima.
+22.   Completar la tabla 3 interpretando las cadenas en cada uno de los sistemas indicados.
 
-24.  Interpretar las siguientes cadenas aplicando el siguiente formato: [ mantisa: SM(9,7) ][ exponente: SM(7)]
-    - 1110 1110 0101 1111
-    - 0010 0001 1000 1100
+|  Cod  | e: BSS(2) / m: BSS(2,2) | e: CA2(2) / m: BSS(2,2) |
+| :---: | :---------------------: | :---------------------: |
+| 0000  |            0            |            0            | e: 0 - 0 / m: 0  |
+| 0001  |            0            |            0            | e: 1 - 1/ m: 0   |
+| 0010  |            0            |            0            | e: 2 - 0/ m: 0   |
+| 0011  |            0            |            0            | e: 3 - -1 / m: 0 |
+| 0100  |          0,25           |          0,25           | e: 0 / m: 0,25   |
+| 0101  |           0,5           |           0,5           | e: 1 / m: 0,25   |
+| 0110  |            1            |          0,25           | e: 2 / m: 0,25   |
+| 0111  |            2            |          0,125          | e: 3 / m: 0,25   |
+| 1000  |           0,5           |           0,5           | e: 0 / m: 0,5    |
+| 1001  |            1            |            1            | e: 1 / m: 0,5    |
+| 1010  |            2            |           0,5           | e: 2 / m: 0,5    |
+| 1011  |            4            |          0,25           | e: 3 / m: 0,5    |
+| 1100  |          0,75           |          0,75           | e: 0 / m: 0,75   |
+| 1101  |           1,5           |           1,5           | e: 1 / m: 0,75   |
+| 1110  |            3            |          0,75           | e: 2 / m: 0,75   |
+| 1111  |            6            |          0,375          | e: 3 / m: 0,75   |
 
-25.  Calcular rango, resolucion mınima y resolucion maxima para el sistema del ejercicio anterior
+
+23.   Para cada sistema de la tabla 3 calcular rango, resolucion maxima y resolucion mınima.
+
+e: BSS(2) / m: BSS(2,2) 
+- Mmin = I<sub>BSS(2,2)</sub>(00) = 0,0
+- Mmax = I<sub>BSS(2,2)</sub>(11) = 0,75
+- Emin = I<sub>BSS(2)</sub>(00) = 0
+- Emax = I<sub>BSS(2)</sub>(11) = 3
+
+- Rango = [0 x 2<sup>3</sup>; 0,75 x 2<sup>3</sup>] = [0; 6]
+- Resolucion máxima = 
+- Resolucion mínima = 
+
+e: CA2(2) / m: BSS(2,2) 
+- Mmin = I<sub>BSS(2,2)</sub>(00) = 0,0
+- Mmax = I<sub>BSS(2,2)</sub>(11) = 0,75
+- Emax = I<sub>CA(2)</sub>(11) = -1
+- Rango = [0 x 2<sup>-1</sup>; 0,75 x 2<sup>-1</sup>] = [0; 0,375]
+
+|         Sistema         |   Rango    | Resolución maxima | Resolucion minima |
+| :---------------------: | :--------: | :---------------: | :---------------: |
+| e: BSS(2) / m: BSS(2,2) |   [0; 6]   | Resolución maxima | Resolucion minima |
+| e: CA2(2) / m: BSS(2,2) | [0; 0,375] | Resolución maxima | Resolucion minima |
+
+1.    Interpretar las siguientes cadenas aplicando el siguiente formato: [ mantisa: SM(9,7) ][ exponente: SM(7)]
+
+- 1110 1110 0101 1111
+    - m = Ism(9,7)(111011100) = -1(Ibss(8,7)(11011100)) = -1*(2<sup>0</sup> + 2<sup>-1</sup> + 2<sup>-3</sup> + 2<sup>-4</sup> + 2<sup>-5</sup>) = -1*(1 + 0,5 + 0,125) + 0,0625 + 0,03125 = -1,71875
+    - e = Ism(7)(1011111) = -1*(Ibss(6)(011111)) = -1*(2<sup>4</sup> + 2<sup>3</sup> + 2<sup>2</sup> + 2<sup>1</sup> + 2<sup>0</sup>) = -1*(16 + 8 + 4 + 2 +1) = -31
+    - m x 2<sup>e</sup> = -1,71875 * 2<sup>-31</sup> = -1,71875 * 2<sup>-31</sup>00000000008
+- 0010 0001 1000 1100
+    - m = I<sub>SM(9,7)</sub>(001000011) = 1*(I<sub>BSS(8,7)</sub>(01000011)) = 1*(2<sup>0</sup> + 2<sup>-6</sup> + 2<sup>-7</sup>) = 1*(1 + 0,015625 + 0,0078125) = 1,0234375
+    - e = I<sub>SM(7)</sub>(000 1100) = 1*(I<sub>BSS(6)</sub>(001100)) = 1*(2<sup>3</sup> + 2<sup>2</sup>) = 1*(8+4) = 12
+    - m x 2<sup>e</sup> = 1,0234375 x 2<sup>12</sup> = 4.192
+
+25.   Calcular rango, resolucion mınima y resolucion maxima para el sistema del ejercicio anterior
+
+|   Rango   | Resolución maxima | Resolucion minima |
+| :-------: | :---------------: | :---------------: |
+| [0; 3968] | Resolución maxima | Resolucion minima |
