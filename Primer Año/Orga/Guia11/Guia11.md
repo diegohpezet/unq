@@ -56,33 +56,47 @@ A00F |C000| fin
 
 b. Hacer un listado de accesos a memoria que se producen en
 
-| Etapa               | Bus de Ctrl | Bus de dir | Bus de datos |
-| ------------------- | ----------- | ---------- | ------------ |
-| Busq de instruccion | R/W=1       | A003       | 1900         |
-| Busq de operandos   | R/W=1       | A004       | 0000         |
-| Alm. de resultados  | R/W=0       | R6         | 0000         |
-| Busq de instruccion | R/W=1       | A005       | 6C00         |
-| Busq de operandos   | R/W=1       | A006       | 0000         |
-| Busq de instruccion | R/W=1       | A009       | 2800         |
-| Busq de operandos   | R/W=1       | A00A       | 0001         |
-| Alm de resultados   | R/W=0       | R0         | 0001         |
-| Busq de instruccion | R/W=1       | A00B       | 2900         |
-| Busq de operandos   | R/W=1       | A00C       | 0001         |
-| Alm de resultados   | R/W=0       | R6         | 0001         |
-| Busq de instrucciòn | R/W=1       | A00D       | A000         |
-| Busq de operandos   | R/W=1       | A00E       | A005         |
-|                     |             |            |              |
-|                     |             |            |              |
-|                     |             |            |              |
-|                     |             |            |              |
-|                     |             |            |              |
-|                     |             |            |              |
-|                     |             |            |              |
-|                     |             |            |              |
+| Etapa                         | Bus de Ctrl | Bus de dir | Bus de datos |
+| ----------------------------- | ----------- | ---------- | ------------ |
+| Busq de instruccion           | R/W=1       | A003       | 1900         |
+| Busq de operandos             | R/W=1       | A004       | 0000         |
+| Alm. de resultados            | R/W=0       | R6         | 0000         |
+| Busq de instruccion (repetir) | R/W=1       | A005       | 6C00         |
+| Busq de operandos             | R/W=1       | B000       | F102         |
+| Busq de operandos             | R/W=1       | A006       | 0000         |
+| Busq de instruccion           | R/W=1       | A009       | 2800         |
+| Busq de operandos             | R/W=1       | A00A       | 0001         |
+| Alm de resultados             | R/W=0       | R0         | 0001         |
+| Busq de instruccion           | R/W=1       | A00B       | 2900         |
+| Busq de operandos             | R/W=1       | A00C       | 0001         |
+| Alm de resultados             | R/W=0       | R6         | 0001         |
+| Busq de instruccion           | R/W=1       | A00D       | A000         |
+| Busq de operandos             | R/W=1       | A00E       | A005         |
+| Busq de instruccion(repetir)  | R/W=1       | A005       | 6C00         |
+| Busq de operandos             | R/W=1       | B001       | A000         |
+| Busq de operandos             | R/W=1       | A006       | 0000         |
+| Busq de instruccion           | R/W=1       | A009       | 2800         |
+| Busq de operandos             | R/W=1       | A00A       | 0001         |
+| Alm de resultados             | R/W=0       | R0         | 0001         |
+| Busq de instruccion           | R/W=1       | A00B       | 2900         |
+| Busq de operandos             | R/W=1       | A00C       | 0001         |
+| Alm de resultados             | R/W=0       | R6         | 0001         |
+| Busq de instruccion           | R/W=1       | A00D       | A000         |
+| Busq de operandos             | R/W=1       | A00E       | A005         |
+|                               |             |            |              |
+|                               |             |            |              |
+|                               |             |            |              |
+|                               |             |            |              |
+|                               |             |            |              |
+|                               |             |            |              |
 
 ## Correspondencia Asociativa
 
 3.  Usando una memoria cache de 4 lineas y 4 celdas por bloque, calcular los aciertos y fallos provocados por la ejecucion de la rutina del ejercicio 2 (considerar la lista de accesos).
+
+| dir(hexa) | dir(binario) | tag | linea | F/A |
+| --------- | ------------ | --- | ----- | --- |
+|           |              |     |       |     |
 
 4.  Suponer una memoria principal de 32 celdas de un byte y una memoria caché con 4 lineas y capacidad de almacenar un bloque de 4 celdas en cada linea.
 
@@ -162,13 +176,55 @@ c. ¿Cuantas celdas contiene dicha memoria cache?
 Para los ejercicios de esta seccion se asume que las memorias cache tienen correspondencia directa
 
 8. Suponiendo una memoria cache de 4 lineas y 4 celdas por bloque, calcular aciertos y fallos en el escenario del ejercicio 2.
-9. Considerar una computadora con una memoria de 64 celdas de un byte y una memoria cache con 4 lineas y bloques de 8 celdas por linea.
 
-   (a) Que tamaño tienen las direcciones de estamemoria?
+```js
+A003  cantElementos: MOV R6, 0x0000   0001 100100 000000 0000 0000 0000 0000
 
-   (b) ¿Cuantos bits de una direccion se destinan a: tag, linea y palabra?
+repetir: CMP [[R0]], 0x0000     0110 110000 000000 0000 0000 0000 0000
+         JE fin                 0001 fin
+         ADD R0, 0x0001         0010 100000 000000 0000 0000 0000 0001
+         ADD R6, 0x0001         0010 100100 000000 0000 0000 0000 0001
+         JMP repetir            1010 repetir
 
-   (c) Explicar lo anterior usando una direccion como ejemplo.
+fin: RET                        1100
+```
+
+```
+A003 |1900| cantElementos
+A004 |0000|
+A005 |6C00| repetir
+A006 |0000|
+A007 |1000|
+A008 |A00F|
+A009 |2800|
+A00A |0001|
+A00B |2900|
+A00C |0001|
+A00D |A---|
+A00E |A005|
+A00F |C000| fin
+```
+
+| dir(hexa) | dir(binario)        | tag | linea | indice | Contenido | F/A | R/W |
+| --------- | ------------------- | --- | ----- | ------ | --------- | --- | --- |
+| A003      | 1010 0000 0000 0011 | A00 | 00    | 11     | 1900      | F   | 1   |
+| A004      | 1010 0000 0000 0100 | A00 | 01    | 00     | 0000      | F   | 1   |
+| A005      | 1010 0000 0000 0101 | A00 | 01    | 01     | 6C00      | A   | 1   |
+| A006      | 1010 0000 0000 0110 | A00 | 01    | 10     | 0000      | A   | 1   |
+| B000      | 1011 0000 0000 0000 | B00 | 00    | 00     |           | F   |     |
+| A007      | 1010 0000 0000 0111 | A00 | 01    | 11     | 1000      | A   |     |
+|           |                     |     |       |        |           |     |     |
+|           |                     |     |       |        |           |     |     |
+|           |                     |     |       |        |           |     |     |
+|           |                     |     |       |        |           |     |     |
+
+1.  Considerar una computadora con una memoria de 64 celdas de un byte y una memoria cache con 4 lineas y bloques de 8 celdas por linea.
+
+(a) Que tamaño tienen las direcciones de estamemoria?
+
+(b) ¿Cuantos bits de una direccion se destinan a: tag, linea y palabra?
+
+(c) Explicar lo anterior usando una direccion como ejemplo.
 
 10. Considerando el escenario del ejercicio 9, mencionar el tag y la linea de la cache a la que corresponde cada dirección:
 
