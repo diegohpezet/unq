@@ -10,6 +10,7 @@ Refiere al proceso de simplificación (**sin perder información**) de los datos
 ## Dependencias
 
 "B no tendría razón de ser sin A". Ej: Un usuario no tiene sentido sin su id
+
 - Dependencia funcional: Atributos que dependen funcionalmente de otro
   - A <- B <-C
 - Dependencia Transitiva: B depende de A, y C no depende de A pero depende de B
@@ -18,7 +19,7 @@ Refiere al proceso de simplificación (**sin perder información**) de los datos
 ## Formas normales
 
 Base de datos no normalizada:
-    (Existe repetición de datos)
+(Existe repetición de datos)
 
 | <u>Matricula</u> | Nombre | Dirección |  Teléfono  | Materia | <u>NumMateria</u> | Carrera  |
 | :--------------: | :----: | :-------: | :--------: | :-----: | :---------------: | :------: |
@@ -26,7 +27,7 @@ Base de datos no normalizada:
 |        1         | Sergio | Puebla 22 | 5656565656 |  Prog   |        234        | Sistemas |
 |        2         |  Ana   | Reforma 1 | 2323232323 |   BD    |        123        | Sistemas |
 
-- **1 Forma Normal**: Trata de identificar grupos de repetición. 
+- **1 Forma Normal**: Trata de identificar grupos de repetición.
 <center>
 
 | <u>Matricula</u> | Nombre | Dirección |  Teléfono  | Carrera  |
@@ -71,10 +72,10 @@ Base de datos no normalizada:
 
 <center>
 
-| <u>Matricula</u> | Nombre | Dirección |  Teléfono  | NroCarrera (FK)  |
-| :--------------: | :----: | :-------: | :--------: | :------: |
-|        1         | Sergio | Puebla 22 | 5656565656 | 1234 |
-|        2         |  Ana   | Reforma 1 | 2323232323 | 1234 |
+| <u>Matricula</u> | Nombre | Dirección |  Teléfono  | NroCarrera (FK) |
+| :--------------: | :----: | :-------: | :--------: | :-------------: |
+|        1         | Sergio | Puebla 22 | 5656565656 |      1234       |
+|        2         |  Ana   | Reforma 1 | 2323232323 |      1234       |
 
 | <u>NroCarrera</u> | Carrera  |
 | :---------------: | :------: |
@@ -95,3 +96,13 @@ Base de datos no normalizada:
 
 </center>
 <hr />
+
+### Notas respecto al parcial
+
+Van a ser 3 ejercicios
+
+- A partir de tablas pasar a 1FN
+- Simil a practica 6, dado un contexto obtener DFs para obtener 2da y 3er forma normal
+- A partir de tablas en 3FN, pasar a 4FN de ser necesario
+
+Claves candidatas = antecedentes - consecuentes + independientes
