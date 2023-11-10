@@ -6,11 +6,19 @@
 
 **Tag**: Referencia un bloque, son los bits mas significativos en cache
 
-**Linea**:
+**Linea**: Conjunto de bloques en una linea del cache
 
-**Indice**:
+**Indice**: Referencia a elemento individual dentro de una linea
 
 - Ejemplo: A0F9
+
+Correspondencia Asociativa
+
+| Tag | Indice |
+| :-- | -----: |
+| A0F |      9 |
+
+Correspondencia Directa
 
 | Tag | Linea | Indice |
 | :-- | :---: | -----: |
@@ -41,6 +49,8 @@ Dada la formula sabemos que:
 Mediante el tag y el indice se define en donde esta el dato buscado
 
 Puede ocurrir un acierto si el dato solicitado esta en cache o un fallo si no. Cuando se produce un fallo la cache almacena el dato solicitado
+
+**Tasa**: Relacion entre aciertos y fallos ($\dfrac{aciertos}{fallos}$)
 
 ### Ejemplo de direccion
 
