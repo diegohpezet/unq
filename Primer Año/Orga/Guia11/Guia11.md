@@ -137,17 +137,17 @@ b. Hacer un listado de accesos a memoria que se producen en
         </tr>
     <table>
 
-        (a) Si las direcciones de memoria tienen 16 bits y el tag es de 12 bits entonces hay 4 bits que se usan para distinguir la palabra/índice. ¿Cuántas celdas entran en un bloque?
+   (a) Si las direcciones de memoria tienen 16 bits y el tag es de 12 bits entonces hay 4 bits que se usan para distinguir la palabra/índice. ¿Cuántas celdas entran en un bloque?
 
-    - 4 celdas de índice pueden referenciar 16 celdas (2<sup>4</sup>)
+- 4 celdas de índice pueden referenciar 16 celdas (2<sup>4</sup>)
 
-      (b) ¿Está cacheada la celda 3451?
+   (b) ¿Está cacheada la celda 3451?
 
-    - Sí, está cacheado
+- Sí, está cacheado
 
-      (c) ¿Qué valor retorna la caché para esa celda?
+   (c) ¿Qué valor retorna la caché para esa celda?
 
-    - Retorna: 44556677
+- Retorna: 44556677
 
 7.  El chip 80286 (fabricado entre 1982 y 1993) tenıa un bus de datos de 16 bits, pero un bus de direcciones de 24 bits, lo que lo hacıa la primera arquitectura de Intel capaz de soportar 16Mb de RAM. Suponer la siguiente memoria cache, adaptada a dicha arquitectura:
 
@@ -245,22 +245,32 @@ A00F |C000| fin
 
 9.  Considerar una computadora con una memoria de 64 celdas de un byte y una memoria cache con 4 lineas y bloques de 8 celdas por linea.
 
-(a) Que tamaño tienen las direcciones de estamemoria?
+$\dfrac{celdas}{celdasPorBloque} = \dfrac{64}{8} = 4$ bloques por línea
+
+(a) Que tamaño tienen las direcciones de esta memoria?
+
+- Siendo que hay 64 celdas se requieren 6 bits para representar las direcciones ($2^6$)
 
 (b) ¿Cuantos bits de una direccion se destinan a: tag, linea y palabra?
 
+- Se le asignan 1 bit de tag, 3 de linea y 2 de palabra.
+
 (c) Explicar lo anterior usando una direccion como ejemplo.
 
+- Suponer que se pide la dirección 0110001. El tag es 0, la linea es 110 y se busca el elemento en la posición 01 del bloque
+    
 10. Considerando el escenario del ejercicio 9, mencionar el tag y la linea de la cache a la que corresponde cada dirección:
 
 | dir    | tag | nroLinea |
 | ------ | --- | -------- |
-| 111000 |     |          |
-| 011001 |     |          |
-| 111111 |     |          |
-| 101000 |     |          |
-| 101001 |     |          |
+| 111000 | 1   | 110      |
+| 011001 | 0   | 110      |
+| 111111 | 1   | 111      |
+| 101000 | 1   | 010      |
+| 101001 | 1   | 010      |
 
-11. Considerando el escenario del ejercicio 9, listar todas las direcciones en la misma liınea que la direccion 111000.
+11.  Considerando el escenario del ejercicio 9, listar todas las direcciones en la misma línea que la direccion 111000.
+
+- Las direcciones son 111000, 111001, 111010, 111011, 111100, 111101, 111110, 111111
 
 12. Suponer que la cach´e descripta en el ejercicio 9 esta vacia, y que se realizan lecturas de direcciones en el siguiente orden. Determinar para cada lectura si esta produjo un fallo o un acierto.
