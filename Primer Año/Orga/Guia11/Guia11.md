@@ -118,36 +118,36 @@ b. Hacer un listado de accesos a memoria que se producen en
     - **Fórmula**: $\dfrac{2^16}{2^2}$ = $2^14$
 
 6.  Suponer una memoria caché que tiene el siguiente contenido:
-    <table>
-        <tr>
-            <td>345</td>
-            <td>00112233445566778899AABBCCDDEEFF</td>
-        </tr>
-        <tr>
-            <td>345</td>
-            <td>FFEEDDCCBBAA99887766554433221100</td>
-        </tr>
-        <tr>
-            <td>345</td>
-            <td>00112233445566778899AABBCCDDEEFF</td>
-        </tr>
-        <tr>
-            <td>345</td>
-            <td>FFEEDDCCBBAA99887766554433221100</td>
-        </tr>
-    <table>
+ <table>
+      <tr>
+         <td>345</td>
+         <td>00112233445566778899AABBCCDDEEFF</td>
+      </tr>
+      <tr>
+         <td>345</td>
+         <td>FFEEDDCCBBAA99887766554433221100</td>
+      </tr>
+      <tr>
+         <td>345</td>
+         <td>00112233445566778899AABBCCDDEEFF</td>
+      </tr>
+      <tr>
+         <td>345</td>
+         <td>FFEEDDCCBBAA99887766554433221100</td>
+      </tr>
+<table>
 
-   (a) Si las direcciones de memoria tienen 16 bits y el tag es de 12 bits entonces hay 4 bits que se usan para distinguir la palabra/índice. ¿Cuántas celdas entran en un bloque?
+a. Si las direcciones de memoria tienen 16 bits y el tag es de 12 bits entonces hay 4 bits que se usan para distinguir la palabra/índice. ¿Cuántas celdas entran en un bloque?
 
-- 4 celdas de índice pueden referenciar 16 celdas (2<sup>4</sup>)
+   4 celdas de índice pueden referenciar 16 celdas (2<sup>4</sup>)
 
-   (b) ¿Está cacheada la celda 3451?
+b. ¿Está cacheada la celda 3451?
 
-- Sí, está cacheado
+   Sí, está cacheado
 
-   (c) ¿Qué valor retorna la caché para esa celda?
+c. ¿Qué valor retorna la caché para esa celda?
 
-- Retorna: 44556677
+   Retorna: 44556677
 
 7.  El chip 80286 (fabricado entre 1982 y 1993) tenıa un bus de datos de 16 bits, pero un bus de direcciones de 24 bits, lo que lo hacıa la primera arquitectura de Intel capaz de soportar 16Mb de RAM. Suponer la siguiente memoria cache, adaptada a dicha arquitectura:
 
