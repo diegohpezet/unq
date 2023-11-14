@@ -68,9 +68,19 @@ C13F |FFFF|
 | --- | ----- | ------ |
 | C   | 13    | 2      |
 
+## Politicas de reemplazo
+
+- FIFO (First In First Out): El primer registro en entrar es tambien el primero en salir
+- LRU (Last REcently Used): Lo usado mas recientemente se conserva. La cache se va actualizando en base al uso.
+
 ## Performance de la caché
 
-```
-Ttotal = Tcache + (1-Tasa de aciertos) * Tprincipal
-```
-
+$$
+\begin{align*}
+WriteBack: \\
+TiempoTotal = CantFallos * (TiempoCache + TiempoPpal) + CantAciertos * TiempoCache\\
+\\
+WriteThrough: \\
+TiempoTotal = (CantFallosLectura + CantEscrituras) * (TiempoCache + TiempoPpal) + (CantAciertos * TiempoCache)
+\end{align*}
+$$

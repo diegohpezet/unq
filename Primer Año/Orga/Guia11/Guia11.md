@@ -139,15 +139,15 @@ b. Hacer un listado de accesos a memoria que se producen en
 
 a. Si las direcciones de memoria tienen 16 bits y el tag es de 12 bits entonces hay 4 bits que se usan para distinguir la palabra/índice. ¿Cuántas celdas entran en un bloque?
 
-   4 celdas de índice pueden referenciar 16 celdas (2<sup>4</sup>)
+4 celdas de índice pueden referenciar 16 celdas (2<sup>4</sup>)
 
 b. ¿Está cacheada la celda 3451?
 
-   Sí, está cacheado
+Sí, está cacheado
 
 c. ¿Qué valor retorna la caché para esa celda?
 
-   Retorna: 44556677
+Retorna: 44556677
 
 7.  El chip 80286 (fabricado entre 1982 y 1993) tenıa un bus de datos de 16 bits, pero un bus de direcciones de 24 bits, lo que lo hacıa la primera arquitectura de Intel capaz de soportar 16Mb de RAM. Suponer la siguiente memoria cache, adaptada a dicha arquitectura:
 
@@ -258,7 +258,7 @@ $\dfrac{celdas}{celdasPorBloque} = \dfrac{64}{8} = 4$ bloques por línea
 (c) Explicar lo anterior usando una direccion como ejemplo.
 
 - Suponer que se pide la dirección 0110001. El tag es 0, la linea es 110 y se busca el elemento en la posición 01 del bloque
-    
+
 10. Considerando el escenario del ejercicio 9, mencionar el tag y la linea de la cache a la que corresponde cada dirección:
 
 | dir    | tag | nroLinea |
@@ -269,7 +269,7 @@ $\dfrac{celdas}{celdasPorBloque} = \dfrac{64}{8} = 4$ bloques por línea
 | 101000 | 1   | 010      |
 | 101001 | 1   | 010      |
 
-11.  Considerando el escenario del ejercicio 9, listar todas las direcciones en la misma línea que la direccion 111000.
+11. Considerando el escenario del ejercicio 9, listar todas las direcciones en la misma línea que la direccion 111000.
 
 - Las direcciones son 111000, 111001, 111010, 111011, 111100, 111101, 111110, 111111
 
@@ -299,26 +299,25 @@ Esta correspondencia combina aspectos de las dos anteriores. Las lineas se agrup
 ## Performance de la caché
 
 15. Se tiene un sistema con una memoria principal con
-un tiempo de acceso de 3s, y una memoria cache
-cuyo tiempo de acceso es de 0,3s y cuya tasa de
-aciertos es del 90%. ¿Cuanto tiempo se tarda en
-leer 2000 celdas?
+    un tiempo de acceso de 3s, y una memoria cache
+    cuyo tiempo de acceso es de 0,3s y cuya tasa de
+    aciertos es del 90%. ¿Cuanto tiempo se tarda en
+    leer 2000 celdas?
 
-T<sub>total</sub> = T<sub>cache</sub> + (1-Tasa de aciertos) * T<sub>principal</sub>
+T<sub>total</sub> = T<sub>cache</sub> + (1-Tasa de aciertos) \* T<sub>principal</sub>
 
 $T = 0,3s + (1 - 0.9) * 3s$ <br> $T = 0.6s$
 
-16.  Suponer los fallos y aciertos de programa que se
-analizo en el ejercicio 3, y considerando que la
-cache tiene tiempo de acceso es de 0,2s, la memoria
-principal tiene un tiempo de acceso de 2s y que es
-despreciable el tiempo de CPU, ¿cuanto tarda en
-ejecutarse el programa?
+16. Suponer los fallos y aciertos de programa que se
+    analizo en el ejercicio 3, y considerando que la
+    cache tiene tiempo de acceso es de 0,2s, la memoria
+    principal tiene un tiempo de acceso de 2s y que es
+    despreciable el tiempo de CPU, ¿cuanto tarda en
+    ejecutarse el programa?
 
-17.  Suponer los fallos y aciertos de programa que se
-analizo en el ejercicio 8, y considerando que la
-cache tiene tiempo de acceso es de 0,2s, la memoria
-principal tiene un tiempo de acceso de 2s y que es
-despreciable el tiempo de CPU, ¿cu´anto tarda en
-ejecutarse el programa?
-
+17. Suponer los fallos y aciertos de programa que se
+    analizo en el ejercicio 8, y considerando que la
+    cache tiene tiempo de acceso es de 0,2s, la memoria
+    principal tiene un tiempo de acceso de 2s y que es
+    despreciable el tiempo de CPU, ¿cuanto tarda en
+    ejecutarse el programa?
