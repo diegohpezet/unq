@@ -273,4 +273,52 @@ $\dfrac{celdas}{celdasPorBloque} = \dfrac{64}{8} = 4$ bloques por línea
 
 - Las direcciones son 111000, 111001, 111010, 111011, 111100, 111101, 111110, 111111
 
-12. Suponer que la cach´e descripta en el ejercicio 9 esta vacia, y que se realizan lecturas de direcciones en el siguiente orden. Determinar para cada lectura si esta produjo un fallo o un acierto.
+12. Suponer que la cache descripta en el ejercicio 9 esta vacia, y que se realizan lecturas de direcciones en el siguiente orden. Determinar para cada lectura si esta produjo un fallo o un acierto.
+
+13. ¿Como se divide una direccion de memoria de 16 bits en tag, linea y palabra si la memoria cache contiene 4 celdas por bloque y 256 lineas? ¿Como se decide si la direccion FA32 esta en cache?
+
+## Correspondencia asociativa por conjuntos
+
+Esta correspondencia combina aspectos de las dos anteriores. Las lineas se agrupan en conjuntos para corresponder de manera directa cada bloque de memoria principal con un conjunto dentro de la cache, y dentro de cada conjunto los bloques se almacenan con un criterio asociativo. Dicho de otra forma, las celdas de memoria tendran un unico conjunto en el que pueden almacenarse y dentro de ese conjunto, pueden ir a cualquier lınea.
+
+14. Cuantos bits de una direccion se destinan a: tag, conjunto y palabra en el siguiente esquema:
+
+- Una memoria principal de 32 celdas de un byte
+- Una memoria cache con:
+  - Bloques de 4 celdas
+  - 4 lineas
+  - Correspondencia asociativa por conjuntos de 2 lineas
+
+| Dir | Dato                                |
+| --- | ----------------------------------- |
+| 00  | 01010101 01010101 01010101 01010101 |
+| 01  | 01010101 01010101 01010101 01010101 |
+| 10  | 01010101 01010101 01010101 01010101 |
+| 11  | 01010101 01010101 01010101 01010101 |
+
+## Performance de la caché
+
+15. Se tiene un sistema con una memoria principal con
+un tiempo de acceso de 3s, y una memoria cache
+cuyo tiempo de acceso es de 0,3s y cuya tasa de
+aciertos es del 90%. ¿Cuanto tiempo se tarda en
+leer 2000 celdas?
+
+T<sub>total</sub> = T<sub>cache</sub> + (1-Tasa de aciertos) * T<sub>principal</sub>
+
+$T = 0,3s + (1 - 0.9) * 3s$ <br> $T = 0.6s$
+
+16.  Suponer los fallos y aciertos de programa que se
+analizo en el ejercicio 3, y considerando que la
+cache tiene tiempo de acceso es de 0,2s, la memoria
+principal tiene un tiempo de acceso de 2s y que es
+despreciable el tiempo de CPU, ¿cuanto tarda en
+ejecutarse el programa?
+
+17.  Suponer los fallos y aciertos de programa que se
+analizo en el ejercicio 8, y considerando que la
+cache tiene tiempo de acceso es de 0,2s, la memoria
+principal tiene un tiempo de acceso de 2s y que es
+despreciable el tiempo de CPU, ¿cu´anto tarda en
+ejecutarse el programa?
+

@@ -67,3 +67,10 @@ C13F |FFFF|
 | Dir | Linea | Indice |
 | --- | ----- | ------ |
 | C   | 13    | 2      |
+
+## Performance de la caché
+
+```
+Ttotal = Tcache + (1-Tasa de aciertos) * Tprincipal
+```
+
