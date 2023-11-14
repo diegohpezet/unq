@@ -50,6 +50,13 @@ Mediante el tag y el indice se define en donde esta el dato buscado
 
 Puede ocurrir un acierto si el dato solicitado esta en cache o un fallo si no. Cuando se produce un fallo la cache almacena el dato solicitado
 
+## Comparacion
+
+| -           | Asociativa             | Directa |
+| ----------- | ---------------------- | ------- |
+| Ventajas    | Mayor tasa de aciertos |         |
+| Desventajas |                        |         |
+
 **Tasa**: Relacion entre aciertos y fallos ($\dfrac{aciertos}{fallos}$)
 
 ### Ejemplo de direccion
@@ -70,8 +77,21 @@ C13F |FFFF|
 
 ## Politicas de reemplazo
 
+**Cabe destacar que esto solamente aplica en C.Asociativa**
+
 - FIFO (First In First Out): El primer registro en entrar es tambien el primero en salir
 - LRU (Last REcently Used): Lo usado mas recientemente se conserva. La cache se va actualizando en base al uso.
+- LFU (Least Used): Sale el registro menos usado
+
+## Politicas de escritura
+
+- Write Through: Escribe en mem principal a la vez que se reemplaza un valor en cache
+- Write Back: Escribe primero el valor en cache y lo copia a ppal cuando desaloja el dato de cache
+
+# Principios de localidad
+
+- Localidad espacial: Puede ser que se use una celda consecutiva a la llamada recientemente
+- Localidad temporal: Puede ser que vuelva a usar una celda llamada recientemente
 
 ## Performance de la caché
 
