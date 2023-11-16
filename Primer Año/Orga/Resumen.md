@@ -1,10 +1,80 @@
 # U7 - Q4: Flags, saltos y alternativa condicional
 
-```js
+Para dirijir el flujo de la ejecución de programa a veces se establecen condiciones en el funcionamiento del mismo
 
+```js
+comparar: CMP R0, 0x0001
+          JE esIgual
+          MOV R5, 0x0000
+          JMP salir
+
+esIgual:  MOV R5, 0x0001
+          JMP salir
+
+salir:    RET
 ```
 
+## Ensamblado
+
+- **CMP**: Es una instrucción de dos operandos, como se venía trabajando anteriormente. Su CodOp es 0110
+  - CMP R0, 0xFEDC = 0110 100000 000000 1111 1110 1101 1100
+
+- **JMP**: Es un salto absoluto, el valor del operando origen debe ser la dirección de memoria donde se desea saltar. Suponer que "salir" está ubicado en 0x9000
+  - JMP salir = 1010 000000 000000 1001 0000 0000 0000
+
+- **Saltos condicionales**: Son saltos relativos. No reemplazan el valor de PC con una dirección de memoria sino que le suman o le restan el valor del desplazamiento expresado en CA2(8)
+- JE salir 1111(Prefijo) 0001(JE) [desplazamiento(8)]
+
+## Cómo se implementa una comparación (Flags)
+
+Se reformula la evaluación del CMP en términos de una resta
+
+Hay 4 flags:
+- Z(zero): Toma el valor 1 si el resultado de la resta es 0
+- N(negative): Toma el valor 1 si el resultado de la resta es negativo
+- C(carry): Toma el valor 1 cuando la resta o la suma tuvieron acarreo
+- V(overflow): Toma el valor 1 cuando el resultado no tiene el signo esperado
+
 # U8 - Q5: Repeticiones y máscaras
+
+La **estructura de repetición** permite repetir bloques de código. Su estructura es la siguiente:
+
+```js
+//Inicialización de variables
+MOV R0, 0x0000       //Contador
+
+repetir: CMP R0, 0x0005
+         JE salir
+         ADD R0, 0x0001
+         JMP repetir
+
+salir:   RET
+```
+
+Este programa solo se repite 5 veces, incrementando un contador
+
+Las **máscaras** por su parte permiten modificar los valores de ciertas posiciones de una cadena de bits. Puede ser necesario para conocer el valor de determinado bit, por ejemplo para determinar si un valor es par o impar.
+
+Las máscaras son
+- AND
+- OR
+- XOR
+- NOT
+
+Ejemplo de uso:
+
+```js
+esPar: MOV R4, 0xFFF1 
+       AND R4, 0x0001       
+       // 1111 1111 1111 0001 ^ 0000 0000 0000 0001 = 1
+       CMP R4, 0x0001
+       JNE siEs
+       MOV R5, 0x0000
+       JMP fin
+
+siEs:  MOV R5, 0x0001
+fin:   RET
+```
 
 # U9 - Arreglos
 
@@ -131,5 +201,79 @@ Se obtiene haciendo la **interpretación de la mantisa que represente el valor 1
 
 La memoria caché es una memoria de acceso rápido para la CPU, almacena información que supone que se requiere tener "a mano" para reducir tiempos de lectura
 
-Almacena información en **bloques**, que son conjuntos de celdas consecutivas en memoria
+Almacena información en **bloques**, que son conjuntos de celdas consecutivas en memoria. A cada bloque almacenado se le asigna una **línea** en caché. Para ubicar un elemento en caché se usa un **índice**, que dice que elemento de la linea es el solicitado
+
+## Principios de localidad
+
+- Localidad espacial: Se entiende que las posiciones cercanas a una celda accedida recientemente son más probables de volverse a usar
+- Localidad temporal: Supone que cuando un programa hace referencia a una celda es probable que lo vuelva a hacer a la brevedad
+
+## Funciones de correspondencia
+
+**Correspondencia asociativa**: El contenido de cada celda leída se asocia a una etiqueta (*tag*)¨que identifica su dirección en memoria principal.
+
+Busca de forma consecutiva en todas las lineas
+
+*Ejemplo*: Suponer una memoria principal con direcciones de 16 bits y una memoria caché de 4 lineas, que almacenan bloques de 4 celdas cada una
+
+```
+Mem.Ppal: 
+0x0000 | DA70 |
+0x0001 | DA71 |
+0x0002 | DA72 |
+0x.... | DA73 |
+0xFFFF | 9999 |
+
+Mem.Caché:
+Tag |Bloque             |
+00  |DA70 DA71 DA72 DA73|
+01  |DA74 DA75 DA76 DA77|
+10  |.... .... .... ....|
+11  |.... .... .... ....|
+```
+
+*Fórmula*: $\dfrac{cantCeldasMemPpal}{"cantCeldasPorLinea"} = cantBloques$
+
+Ejemplo (con otros valores): $\dfrac{64}{4}$ = $\dfrac{2^6}{2^2}$ = $2^4$ = 16
+
+Dada la formula sabemos que:
+
+- Se usan 2 bits para el indice ($2^2$)
+- Se usan 4 bits para el tag($2^4$)
+- Hay 16 bloques
+
+A la hora de realizar una **lectura** se determina primero si la celda está cacheada, aplicando el siguiente formato de dirección:
+
+| Dirección: (16b) |             |
+| ---------------- | ----------- |
+| Nro.Bloque (12b) | Indice (4b) |
+
+El algoritmo que se ejecuta es el siguiente:
+```
+Sea X la direccion de la celda pedida
+Sea B el numero de bloque de la celda X
+Sea I el indice correspondiente a la celda X
+Si B no esta en etiquetando ninguna linea entonces :
+       Leer bloque B
+       Sea L la linea elegida ( segun algoritmo de reemplazo )
+       Almacenar el bloque B en L
+sino :
+       Sea L la linea etiquetada por B
+       Proyectar el dato D a pa
+```
+
+**Correspondencia Directa**: A parte del tag y el índice surge el concepto de **linea**. A la hora de validar si una celda está cacheada, la memoria caché debe buscar el bloque que la contiene, *únicamente en la linea que le corresponde a ese bloque*, usando el tag que lo identifica
+
+```
+Sea X la direccion de la celda pedida
+Sea I el indice correspondiente a la celda X
+Sea B el numero de bloque de la celda X
+Sea L la linea que le corresponde al bloque B
+Sea T el tag que corresponde al bloque B
+Si L no tiene el tag T entonces :
+       Leer bloque B
+       Almacenar el bloque B en L
+       Proyectar el dato D a partir de la linea L y el indice I
+       Enviar dato D a la CPU
+```
 
