@@ -96,7 +96,7 @@
 
 3. Se cuenta con una arquitectura Q con una memoria cache de correspondencia directa con 4 lineas y bloques de memoria de 16 celdas
   - Indicar el formato de las direcciones que aplica esta caché, mediante un ejemplo
-    - $\dfrac{cantCeldas}{cantLineas} = \dfrac{16}{4} = \dfrac{2^4}{2^2}$. En base a esto sabemos que se usan 2 bits para la Linea, 4, para el indice y el resto para el tag. Entonces, suponiendo una dirección ABCD (1010 1011 1100 1101)
+    - $\dfrac{2^{16}}{celdasPorBloque} = \dfrac{2^{16}}{16} = \dfrac{2^{16}}{2^{4}} = 2^{16-4} = 2^{12}$ En base a esto sabemos que se usan 4 bits para el indice o palabra y el resto para la linea y el tag. Entonces, suponiendo una dirección ABCD (1010 1011 1100 1101)
       - índice: 1101
       - línea: 00
       - tag: 1010 1011 11
@@ -129,7 +129,7 @@
     - Un **fallo** ocurre cuando realiza una búsqueda de instrucción sobre la celda A000. Dado que la celda no está en caché, se cachea el bloque donde ésta se encuentra. Una vez está cacheada, se envía al CPU el dato
     - Un **acierto** ocurre cuando se realiza la segunda búsqueda de instrucción. Cómo el bloque que contiene la celda A001 fué cacheado en la etapa anterior, se envía el dato a la CPU directamente desde caché
 
-4. Se cuenta con la rutina *negativoPuntoFijo*, cuya documentación es la siguiente
+1. Se cuenta con la rutina *negativoPuntoFijo*, cuya documentación es la siguiente
 
 | negativoPuntoFijo |   |
 | ----------------- |---|
