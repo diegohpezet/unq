@@ -129,8 +129,10 @@ Se dedican los primeros bits a la parte entera, el resto a la parte fraccionaria
 
 ### Representación y error
 
-$R_{BSS(5)}(19) = 2^{0} + 2^{1} + 2^{4} = 10011$
+Para representar empleando el método escalado se redondea el resultado de $x*2^n$, donde n representa la cantidad de bits correspondientes a la parte fraccionaria. Luego simplemente se representa esa cadena en BSS
 
+Ejemplo = $19,625 * 2^3 = 19,625 * 8 = 157$
+$R_{BSS(8)}(157) = 2^{7} + 2^{4} + 2^{3} + 2^{2} + 2^{0}$ = 10011101
 
 ### Rango
 
