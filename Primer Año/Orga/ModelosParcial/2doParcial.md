@@ -96,9 +96,9 @@
 
 3. Se cuenta con una arquitectura Q con una memoria cache de correspondencia directa con 4 lineas y bloques de memoria de 16 celdas
   - Indicar el formato de las direcciones que aplica esta caché, mediante un ejemplo
-    - $\dfrac{cantCeldas}{cantLineas} = \dfrac{16}{4} = \dfrac{2^4}{2^2}$. En base a esto sabemos que se usan 4 bits para la Linea, 2, para el indice y el resto para el tag. Entonces, suponiendo una dirección ABCD (1010 1011 1100 1101)
-      - índice: 01
-      - línea: 0011
+    - $\dfrac{cantCeldas}{cantLineas} = \dfrac{16}{4} = \dfrac{2^4}{2^2}$. En base a esto sabemos que se usan 2 bits para la Linea, 4, para el indice y el resto para el tag. Entonces, suponiendo una dirección ABCD (1010 1011 1100 1101)
+      - índice: 1101
+      - línea: 00
       - tag: 1010 1011 11
   - Dado el siguiente mapa de memoria, y asumiendo que la caché está vacía, que R0=DAD0, y PC=A000, calcular los aciertos y fallos ocasionados por la ejecución de la rutina ensamblada, indicando la etapa del ciclo de ejecución correspondiente
 
@@ -119,11 +119,11 @@
   
   |etapa|dir|tag|linea|indice|F/A|R/W|
   | --- |---|---| --- | ---- |---|---|
-  |B.instrucción|A000|A0<sub>00</sub>| 0000 | 00 | F | R |
-  |B.instrucción|A001|A0<sub>01</sub>| 0000 | 01 | A | R |
-  |Alm.Resultado|DAD0|DA<sub>11</sub>| 0100 | 00 | F | W |
-  |B.Instrucción|A002|A0<sub>00</sub>| 0000 | 10 | A | R |
-  |E.Operación  |FFEF|FF<sub>11</sub>| 1011 | 11 | F | R |
+  |B.instrucción|A000|A0<sub>00</sub>| 00 | 0000 | F | R |
+  |B.instrucción|A001|A0<sub>01</sub>| 00 | 0001 | A | R |
+  |Alm.Resultado|DAD0|DA<sub>11</sub>| 01 | 0000 | F | W |
+  |B.Instrucción|A002|A0<sub>00</sub>| 00 | 0010 | A | R |
+  |E.Operación  |FFEF|FF<sub>11</sub>| 10 | 1111 | F | R |
 
   - Explicar detalladamente a modo de ejemplo un acierto y un fallo, indicando como se relaciona la información de los items anteriores
     - Un **fallo** ocurre cuando realiza una búsqueda de instrucción sobre la celda A000. Dado que la celda no está en caché, se cachea el bloque donde ésta se encuentra. Una vez está cacheada, se envía al CPU el dato
