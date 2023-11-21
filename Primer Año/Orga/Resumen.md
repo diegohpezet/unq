@@ -279,3 +279,20 @@ Si L no tiene el tag T entonces :
        Enviar dato D a la CPU
 ```
 
+## Algoritmos de correspondencia
+
+**LRU (Last Recently Used)**: Es el más común. Se reemplaza aquel bloque cuya última referencia se ha producido en el pasado más lejano
+
+**FIFO (First In-First Out)**: El primer bloque en entrar es aquel bloque en salir
+
+**LFU (Least Frequently Used)**: Reemplaza el bloque que se acceda con menos frecuencia
+
+## Políticas de escritura
+
+**Write-through**: Cada vez que un dato se modifica en memoria caché, se realiza el cambio en memoria principal. Manteniendo los bloques de caché y de principal iguales
+
+**Write-back**: El dato se modifica primero en caché y, al desalojarse el bloque, se actualizan recién los cambios en mem.principal. Se identifica el bloque alterado mediante un *dirty bit*
+
+## Performance de la caché
+
+T<sub>total</sub> = T<sub>cache</sub> + (1-Tasa de aciertos) \* T<sub>principal</sub>
