@@ -6,7 +6,8 @@ BSS(n,m)
 - Representación: $I:{BSS}(x*2^m)$
 - Rango: Se representan el min y el max
 - Resolución: $2^m$
-- Error: $ValorObtenido - ValorAproximadoRepresentable$
+- Error absoluto: $|x - x'|$
+- Error relativo: ErrorAbsoluto/x
 
 **Punto Flotante**
 
