@@ -279,3 +279,6 @@ Si L no tiene el tag T entonces :
        Enviar dato D a la CPU
 ```
 
+## Performance de la caché
+
+T<sub>total</sub> = T<sub>cache</sub> + (1-Tasa de aciertos) \* T<sub>principal</sub>
