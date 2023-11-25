@@ -97,6 +97,14 @@ Base de datos no normalizada:
 </center>
 <hr />
 
+- **4 Forma Normal**: Identifica dependencias multivaluadas
+```
+"Sea R un esquema de relacion formado por los atributos A,B,C, la dependencia multivaluada A->->B existe *si y solo si* el conjunto de valores de B que se obtiene para un par de valores (A,C) depende sólo del valor de A y es independiente de los valores para C
+```
+
+Nota: Si se hace un NATURAL JOIN de las relaciones resultantes se devuelve a la relación original
+
+
 ### Notas respecto al parcial
 
 Van a ser 3 ejercicios
