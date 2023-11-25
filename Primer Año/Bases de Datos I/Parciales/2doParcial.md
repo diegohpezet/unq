@@ -119,10 +119,14 @@ la cuenta 001 con una tarjeta 4568 tiene un monto máximo de $ 20.000.
 ```
 
 a. DF1: nomBanco -> DNIPresidenteBanco
+
    DF2: DNIPresidenteBanco -> nyapPresidente, ciudadPresidente
+
    DF3: nomBanco, #cuenta -> saldo,tipo
    DF4: tipo -> montoDescubierto    
+
    DF5: nomBanco, #prestamo -> montoTotalPrestamo
+
    DF6: nomBanco, #cuenta, #tarjeta -> montoMaximoGasto
 
    **Notese que tipo es una Dependencia Transitiva (montoDescubierto depende de tipo y tipo, a su vez depende de nomBanco y #cuenta)**
