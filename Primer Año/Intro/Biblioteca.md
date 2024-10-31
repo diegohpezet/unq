@@ -595,6 +595,15 @@ funcion maximoOMinimo() {
     
     return (elMas)
 }
+
+function sobreLista(lista) {
+    listaRestante := lista
+    while (not esVacia(listaRestante)) {
+	// Procesar primero(listaRestante)
+	listaRestante := resto(listaRestante)
+    }
+    return (algo)
+}
 ```
 
 ```js
