@@ -724,20 +724,97 @@ function esSingular_(lista) {
     return (not esVacía(lista) && esVacía(resto(lista)))
 }
 
-function listaCon_Repetido_Veces(elemento, cantidad) {
+function listaCon_Repetido_Veces(elemento, cantidadDeVeces) {
 /*
-    PROPOSITO: Describe una lista con el elemento **elemento** repetido la cantidad de veces dada
-    PARAMETROS:
-        - elemento: Elemento - Elemento a repetir en la lista
-        - cantidad: Numero - Cantidad de veces a repetir el elemento en la lista
+    PROPOSITO: Describe una lista que tienen tantos elementos como la cantidad de veces dada, en donde el elemento es el dado
+    PARAMETROS: 
+        * elemento: Elemento - Elemento que va a completar la lista
+        * cantidadDeVeces: Numero - Cantidad de veces que se va a poner ese elemento
     TIPO: Lista de elementos
     PRECONDICION: Ninguna
-*/
-    lista := []
-    repeat (cantidad) {
-        lista := lista ++ elemento
+*/    
+    listaHastaAhora := []
+    repeat (cantidadDeVeces) {
+        listaHastaAhora := listaHastaAhora ++ [ elemento ]
     }
-    
-    return (lista)
+
+    return(listaHastaAhora)
+}
+
+function listaDesde_Hasta_(valorInicial, valorFinal) {
+/*
+	PROPOSITO: Describe una lista que va del **valorInicial** al **valorFinal**
+	PARAMETROS:
+		* valorInicial: Elemento - Primer valor de la lista
+		* valorFinal: Elemento - Primer valor de la lista
+	TIPO: Lista
+
+*/
+	return [valorInicial .. valorFinal]
+}
+
+function longitudDe_(lista) {
+/*
+	PROPOSITO: Describe la longitud de la lista dada
+	PARAMETROS:
+		* lista: Lista de Elementos - Lista de elementos a evaluar
+	TIPO: Numero
+	PRECONDICION: Ninguna
+*/
+	contador := 0
+	foreach elemento in lista {
+		contador := contador + 1
+	}
+
+	return (contador)
+}
+
+function sumatoriaDe_(listaNumerica) {
+/*
+	PROPOSITO: Describe la suma de todos los elementos de la lista
+	PARAMETROS:
+		* listaNumerica: Lista de Numeros - Lista a procesar
+	TIPO: Numero
+	PRECONDICION: La lista no debe estar vacía
+*/
+	sumatoria := 0
+	foreach numero in listaNumerica {
+		sumatoria := sumatoria + numero
+	}
+
+	return (sumatoria)
+}
+
+function productoriaDe_(listaNumerica) {
+/*
+	PROPOSITO: Describe el producto entre todos los elementos de la lista
+	PARAMETROS:
+		* listaNumerica: Lista de Numeros - Lista a procesar
+	TIPO: Numero
+	PRECONDICION: La lista no debe estar vacía
+*/
+    productoria := 1
+    foreach numero in listaNumerica {
+        productoria := productoria * numero
+    }
+
+    return (productoria)
+}
+
+
+function opuestasDe_(listaDeDirecciones) {
+/*
+    PROPOSITO: Describe una lista de direcciones opuestas a las del listado de direcciones dado
+    PARAMETROS:
+        * listaDeDirecciones: Lista de Direcciones
+    TIPO: Lista de Direcciones
+    PRECONDICION: La lista no debe estar vacia
+*/
+    listaNueva := []
+    foreach direccion in listaDeDirecciones {
+        listaNueva := listaNueva ++ [ opuesto(direccion) ]
+    }
+
+    return (listaNueva)
 }
 ```
