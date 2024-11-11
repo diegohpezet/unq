@@ -603,7 +603,30 @@ function sobreLista(lista) {
 	}
 	return (algo)
 }
+
+function transformacionSobreLista(lista) {
+	listaTransformada := []
+	foreach elemento in lista {
+		listaTransformada := transformada ++ [transformarElemento_(elemento)]
+	}
+
+	return (transformada)
 }
+
+function filtroDeLista(lista) {
+	listaFiltrada := []
+	foreach elemento in lista {
+		listaFiltrada := listaFiltrada ++ singular_Si(elemento, debeAgregarse(elemento))	
+		// debeAgregarse es una subtarea que, mediante un choose, determina si el elemento pasa el filtro
+	}
+
+	return (listaFiltrada)
+}
+
+function singularSi_(elemento, condicion) {
+	return (choose [elemento] when condicion [] otherwise)
+}
+
 ```
 
 ```js
@@ -997,6 +1020,6 @@ function elementosEn_Desde_(lista, indice) {
         contador := contador + 1
     }
     
-    return (listaRecortada)
+    return (listaRe|cortada)
 }
 ```
