@@ -595,6 +595,7 @@ funcion maximoOMinimo() {
     
     return (elMas)
 
+// Recorridos sobre listas
 function sobreLista(lista) {
 	listaRestante := lista
 	while (not esVacia(listaRestante)) {
@@ -604,6 +605,7 @@ function sobreLista(lista) {
 	return (algo)
 }
 
+// Transformacion
 function transformacionSobreLista(lista) {
 	listaTransformada := []
 	foreach elemento in lista {
@@ -613,6 +615,7 @@ function transformacionSobreLista(lista) {
 	return (transformada)
 }
 
+// Filtrado
 function filtroDeLista(lista) {
 	listaFiltrada := []
 	foreach elemento in lista {
@@ -623,10 +626,57 @@ function filtroDeLista(lista) {
 	return (listaFiltrada)
 }
 
+// Transformacion y filtrado
+function transformacionYFiltro(lista) {
+	// dame los nombres de los pokemon mas piolas
+	listaFiltrada := []
+	foreach elemento in lista {
+		listaFiltrada := listaFiltrada ++ singular_Si(transformarElemento_(elemento), debeAgregarse(elemento))
+	}
+}
+
 function singularSi_(elemento, condicion) {
 	return (choose [elemento] when condicion [] otherwise)
 }
 
+// Acumulacion
+function acumulacionEnLista(lista) {
+	acumulado := 0
+	foreach elemento in lista {
+		acumulado := acumulado + valorPara_(elemento) 
+	}
+
+	return (acumulado)
+}
+
+// Busqueda
+function busquedaSinSaber(lista) {
+	listaRestante := lista
+	while (not esVacía(listaRestante) && not(encontreLoQueBusco(primero(listaRestante)))) {
+		listaRestante := sinElPrimero_(listaRestante)
+	}
+
+	return (not esVacía(listaRestante))
+}
+
+function busquedaSabiendo(lista) {
+	listaRestante := lista
+	while (not encontreLoQueBusco(primero(listaRestante))) {
+		listaRestante := sinElPrimero_(listaRestante)
+	}
+
+	return (primero(listaRestante))
+}
+
+// max - min
+function maximoOMinimo(lista) {
+	elMasHastaAhora := primero(lista)
+	foreach elemento in sinElPrimero_(lista) {
+		elMasHastaAhora := elMasEntre_Y_(elMasHastaAhora, elemento)
+	}
+
+	return (elMas)
+}
 ```
 
 ```js
