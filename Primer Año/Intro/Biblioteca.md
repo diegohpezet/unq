@@ -594,15 +594,15 @@ funcion maximoOMinimo() {
     }
     
     return (elMas)
-}
 
 function sobreLista(lista) {
-    listaRestante := lista
-    while (not esVacia(listaRestante)) {
-	// Procesar primero(listaRestante)
-	listaRestante := resto(listaRestante)
-    }
-    return (algo)
+	listaRestante := lista
+	while (not esVacia(listaRestante)) {
+		// Procesar primero(listaRestante)
+		listaRestante := resto(listaRestante)
+	}
+	return (algo)
+}
 }
 ```
 
@@ -825,5 +825,178 @@ function opuestasDe_(listaDeDirecciones) {
     }
 
     return (listaNueva)
+}
+
+function siguientesDe_(listaDeDirecciones) {
+/*
+    PROPOSITO: Describe una lista de direcciones siguientes a las del listado de direcciones dado
+    PARAMETROS:
+        * listaDeDirecciones: Lista de Direcciones
+    TIPO: Lista de Direcciones
+    PRECONDICION: La lista no debe estar vacia
+*/
+
+    listaNueva := []
+    foreach direccion in listaDeDirecciones {
+        listaNueva := listaNueva ++ [ siguiente(direccion) ]
+    }
+
+    return (listaNueva)
+}
+
+function reversoDe_(lista) {
+/*
+	PROPOSITO: Describe la lista inversa de la dada
+	PARAMETROS: 
+	    * lista - Listado de elementos
+	TIPO: Listado de elementos
+	PRECONDICION: **lista** debe tener al menos dos elementos
+*/
+	listaReversa := []
+
+	foreach elemento in lista {
+		listaReversa := [elemento] ++ listaReversa
+	}
+
+	return (listaReversa)
+}
+
+function elementosDe_SinAparicionesDe_(lista, elementoAEvitar) {
+/*
+	PROPOSITO: Describe una lista solo con los elementos de la lista original que no son el elemento dado
+	PARAMETROS:
+		* lista: Listado de elementos
+		* elementoAEvitar: Elemento
+	TIPO: Listado de elementos
+	PRECONDICION: Ninguna
+*/
+	listaSinElemento := []
+
+	foreach elemento in lista {
+		listaSinElemento := choose 
+		    listaSinElemento ++ [ elemento ] when (elemento /= elementoAEvitar) 
+		    listaSinElemento otherwise
+	}
+
+	return(listaSinElemento)
+}
+
+function contiene_A_(lista, elementoABuscar) {
+/*
+    PROPOSITO: Indica si la lista dada tiene el elemento dado
+    PARAMETROS:
+        * lista: Listado de elementos
+        * elementoABuscar: Elemento
+    TIPO: Booleano
+    PRECONDICION: Ninguna
+    OBSERVACION: Es un recorrido de búsqueda sin saber si hay elementos en una lista
+*/
+    miLista := lista
+
+    while (not esVacía(miLista) && not elementoABuscar == primero(miLista)) {
+        miLista := resto(miLista)
+    }
+    
+    return (not esVacía(miLista) && elementoABuscar == primero(miLista))
+}
+
+function indiceEn_De_(elemento, lista) {
+/*
+	PROPOSITO:  Describe la primera ubicación de la lista en la que se encuentra dicho elemento
+	PARAMETROS:
+	    * elemento: Elemento
+	    * lista: Listado de elementos
+	TIPO: Numero
+	PRECONDICION: Debe existir el elemento dado en la lista
+	OBSERVACION: Es un recorrido de búsqueda por elementos de una lista sabiendo que existe lo que se busca
+*/
+    contador := 0
+    miLista := lista
+    while (not elemento == primero(miLista)) {
+        miLista := resto(miLista)
+        contador := contador +1
+    }
+    
+    return (contador)
+}
+
+function minimoEn_(lista) {
+/*
+    PROPOSITO: Describe el elemento minimo en la lista dada
+    PARAMETROS:
+        * lista: Listado de elementos
+    TIPO: Elemento
+    PRECONDICION: **lista** no debe estar vacía
+    OBSERVACIÓN: Es un recorrido de maximos-minimos por elementos de una lista
+*/
+    minimoHastaAhora := primero(lista)
+    
+    foreach elemento in lista {
+        minimoHastaAhora := choose minimoHastaAhora when (minimoHastaAhora < elemento)
+                                   elemento otherwise
+    }
+    
+    return(minimoHastaAhora)
+}
+
+function maximoEn_(lista) {
+/*
+    PROPOSITO: Describe el elemento maximo en la lista dada
+    PARAMETROS:
+        * lista: Listado de elementos
+    TIPO: Elemento
+    PRECONDICION: **lista** no debe estar vacía
+    OBSERVACIÓN: Es un recorrido de maximos-minimos por elementos de una lista
+*/  
+    maximoHastaAhora := primero(lista)
+    
+    foreach elemento in lista {
+        maximoHastaAhora := choose maximoHastaAhora when (maximoHastaAhora > elemento)
+                                   elemento otherwise
+    }
+    
+    return(maximoHastaAhora)
+}
+
+function elementosEn_Hasta_(lista, indice) {
+/*
+    PROPOSITO: Describe una lista con los elementos hasta el indice **indice** de la lista dada
+    PARAMETROS:
+        * lista: Listado de elementos
+        * indice: Numero
+    TIPO: Listado de elementos
+    PRECONDICION: La lista debe tener al menos **indice + 1** elementos
+    OBSERVACION: Es un recorrido de procesamiento por elementos de una lista
+*/
+    contador := 0
+    listaRecortada := []
+    foreach elemento in lista {
+        listaRecortada := choose listaRecortada ++ [elemento] when (contador <= indice)
+                                 listaRecortada otherwise
+        contador := contador + 1
+    }
+    
+    return (listaRecortada)
+}
+
+function elementosEn_Desde_(lista, indice) {
+/*
+    PROPOSITO: Describe una lista con los elementos desde el indice **indice** de la lista dada
+    PARAMETROS:
+        * lista: Listado de elementos
+        * indice: Numero
+    TIPO: Listado de elementos
+    PRECONDICION: La lista debe tener al menos **indice + 1** elementos
+    OBSERVACION: Es un recorrido de procesamiento por elementos de una lista
+*/
+    contador := 0
+    listaRecortada := []
+    foreach elemento in lista {
+        listaRecortada := choose listaRecortada ++ [elemento] when (contador >= indice)
+                                 listaRecortada otherwise
+        contador := contador + 1
+    }
+    
+    return (listaRecortada)
 }
 ```
