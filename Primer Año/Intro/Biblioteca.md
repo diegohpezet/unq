@@ -595,7 +595,8 @@ funcion maximoOMinimo() {
     
     return (elMas)
 
-// Recorridos sobre listas
+// --- Recorridos sobre listas --- //
+
 function sobreLista(lista) {
 	listaRestante := lista
 	while (not esVacia(listaRestante)) {
@@ -635,8 +636,8 @@ function transformacionYFiltro(lista) {
 	}
 }
 
-function singularSi_(elemento, condicion) {
-	return (choose [elemento] when condicion [] otherwise)
+function singular_Si_(elemento, condicion) {
+	return (choose [elemento] when (condicion) [] otherwise)
 }
 
 // Acumulacion
@@ -676,6 +677,10 @@ function maximoOMinimo(lista) {
 	}
 
 	return (elMas)
+}
+
+function sinElPrimero_(lista) {
+	return (resto(lista))
 }
 ```
 
@@ -1072,4 +1077,40 @@ function elementosEn_Desde_(lista, indice) {
     
     return (listaRe|cortada)
 }
+
+function elementosEn_SinPrimeraAparicionDe_(lista, elemento) {
+/*
+    PROPOSITO: Describe la lista dada unicamente con una sola aparicion del elemento dado
+    PARAMETROS:
+        - lista: Lista de Elementos
+        - elemento: Elemento
+    TIPO: Listado de Elementos
+    PRECONDICION: **elemento** debe estar presente en la lista
+    OBSERVACION: Es un recorrido de filtrado por elementos de una lista, exceptuando la primera aparicion del elemento
+*/
+	listaNueva := []
+	foreach item in lista {
+		listaNueva := listaNueva ++ singular_Si_(item, (item /= elemento || not contiene_A_(listaNueva, elemento)))
+	}
+
+	return (listaNueva)
+}
+
+function sinDuplicados_(lista) {
+/*
+    PROPOSITO: Describe la lista dada sin repeticiones de ninguno de sus elementos
+    PARAMETROS:
+        - lista: Lista de Elementos
+    TIPO: Listado de Elementos
+    PRECONDICION: Ninguna
+    OBSERVACION: Es un recorrido de filtrado por elementos de una lista, filtrando los elementos duplicados
+*/
+	listaSinDuplicados := []
+	foreach item in lista {
+		listaSinDuplicados := listaSinDuplicados ++ singular_Si_(item, not contiene_A_(listaSinDuplicados, item))
+	}
+
+	return (listaSinDuplicados)
+}
+
 ```
