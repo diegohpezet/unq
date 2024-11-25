@@ -289,4 +289,30 @@ function siguientesDe_(listaDeDirecciones) {
 
     return (listaNueva)
 }
+
+// --- Ejercicio 15 --- //
+
+
+
+```
+
+
+
+
+```js
+function xd(listaDeCajas, nroCaja, cliente) {
+/*
+    Dada una lista de cajas, un cliente y un nro de cajas, describe la misma lista pero actualizando la caja del nro dado para darle el cliente dado
+*/
+    transformada := []
+    foreach caja in listaDeCajas {
+        transformada := transformada ++ choose caja when (nroCaja(caja) /= nroCaja) cajaActualizada() otherwise
+    }
+
+    return (transformada)
+}
+
+actualizarCliente_DeCaja_Si_(clienteNuevo, caja, condicion) {
+    choose Caja(caja |cliente <- clienteNuevo) when (condicion)  caja otherwise
+}
 ```

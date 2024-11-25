@@ -1,0 +1,208 @@
+type Universo is record {
+    field nombre // String
+    field galaxias // [Galaxia]
+}
+
+type Galaxia is record {
+    field nombre // String
+    field planetas // [Planeta]
+}
+
+type Planeta is record {
+    field nombre // String
+    field continentes // [Continente]
+}
+
+type Continente is record {
+    field nombre // String
+    field países // [País]
+}
+
+type País is record {
+    field nombre // String
+    field provincias // [Provincia]
+}
+
+type Provincia is record {
+    field nombre // String
+    field ciudades // [Ciudad]
+}
+
+type Ciudad is record {
+    field nombre // String
+    field barrios // [Barrio]
+}
+
+type Barrio is record {
+    field nombre // String
+    field calles // [Calle]
+}
+
+type Calle is record {
+    field nombre // String
+    field edificios // [Edificio]
+}
+
+type Edificio is record {
+    field nombre // Str ing
+    field pisos // [Piso]
+}
+
+type Piso is record {
+    field número // Número
+    field habitaciones // [Habitación]
+}
+
+type Habitación is record {
+    field tipoDeHabitación // TipoDeHabitación
+    field habitantes // [Habitante]
+}
+
+type Habitante is record {
+    field nombre // String
+    field edad // Número
+}
+
+type TipoDeHabitación is variant {
+    case Dormitorio {}
+    case Baño {}
+    case Cocina {}
+    case SalaDeEstar {}
+    case Templo {}
+}
+
+/* 
+1) 
+Escribir la función cantidadDeBañosEn_ que dado un multiverso 
+(es decir, una lista de universos, obviamente) devuelve la cantidad de baños que hay en dicho multiverso.
+*/
+
+//------------------------------------------------
+
+function cantidadDeBañosEn_(multiverso) {
+    /*
+        PROPÓSITO: Describe la cantidad de baños que hay en dicho multiverso.
+        PARÁMETROS:
+            * multiverso: [multiverso]
+        TIPO: Numero
+        PRECONDICIONES:
+            * Ninguna.
+        obs: Recorrido de acumulacion sobre los universos del mutiverso dado, usando como subtarea cantidadDeBañoEnUniverso_.
+    */
+    cantidadDeBañosHastaAhora := 0
+    foreach universo in multiverso {
+        cantidadDeBañosHastaAhora := cantidadDeBañosHastaAhora + cantidadDeBañoEnUniverso_(universo)
+    }
+    return(cantidadDeBañosHastaAhora)
+}
+
+function cantidadDeBañoEnUniverso_(universo) {
+    /*
+        PROPÓSITO: Describe la cantidad de baños en el universo dado.
+        PARÁMETROS:
+            * universo: Universo.
+        TIPO: Numero
+        PRECONDICIONES:
+            * Ninguna.
+        obs: Recorrido de acumulacion sobre las galaxias del universo dado, usando como subtarea cantidadDeBañoEnGalaxia_.
+    */
+    cantidadDeBañosHastaAhora := 0
+    foreach galaxia in galaxias(universo) {
+        cantidadDeBañosHastaAhora := cantidadDeBañosHastaAhora + cantidadDeBañoEnGalaxia_(galaxia)
+    }
+    return(cantidadDeBañosHastaAhora)
+}
+
+function cantidadDeBañoEnGalaxia_(galaxia) {
+    /*
+        PROPÓSITO: Describe la cantidad de baños en la galaxia dado.
+        PARÁMETROS:
+            * galaxia: Galaxia.
+        TIPO: Numero
+        PRECONDICIONES:
+            * Ninguna.
+        obs: Recorrido de acumulacion sobre las planetas de la galaxia dado, usando como subtarea cantidadDeBañoEnPlaneta_.
+    */
+    cantidadDeBañosHastaAhora := 0
+    foreach planeta in planeta(galaxia) {
+        cantidadDeBañosHastaAhora := cantidadDeBañosHastaAhora + cantidadDeBañoEnPlaneta_(planeta)
+    }
+    return(cantidadDeBañosHastaAhora)
+}
+
+function cantidadDeBañoEnPlaneta_(planeta) {
+    /*
+        PROPÓSITO: Describe la cantidad de baños en el planeta dado.
+        PARÁMETROS:
+            * planeta: Planeta.
+        TIPO: Numero
+        PRECONDICIONES:
+            * Ninguna.
+        obs: Recorrido de acumulacion sobre los continentes del planeta dado, usando como subtarea cantidadDeBañoEnContinente_.
+    */
+    cantidadDeBañosHastaAhora := 0
+    foreach contiente in continente(planeta) {
+        cantidadDeBañosHastaAhora := cantidadDeBañosHastaAhora + cantidadDeBañoEnContinente_(planeta)
+    }
+    return(cantidadDeBañosHastaAhora)
+}
+
+/*
+2) 
+Escribir la función tiene_MásDe_AñosEn_ que dado un nombre, una cantidad de años
+y un multiverso, devuelve verdadero en caso de que el multiverso dado haya algún habitante
+con el nombre dado y cuya edad sea mayor a la dada
+Esta vez, sólo escriban las observaciones.
+*/
+
+-------------------------------
+
+function tiene_MásDe_AñosEn_(nombreDado, cantidadDeAños, multiversoDado) {
+    /*
+    Propósito: indica si en el multiverso dado hay un habitante con el nombre *nombreDado*
+    con una cantidad de años mayor a *cantidadDeAños*
+    Parámetro:
+    nombreDado - string - String la cual se usara para el nombre del habitante a buscar
+    cantidadDeAños - Número - Número el cual se va a ver si el del habitante es mayor a este 
+    multiversoDado - [Universo] - lista de universo en la cual se buscara al habitante 
+    precondición: ninguna
+    Tipo: Booleano
+    */
+    return (edad(habitanteDeNombre_En_(nombre, multiverso)) > cantidadDeAños)    
+}
+
+function habitanteDeNombre_En_(nombre, multiverso) {
+    /*
+    Obs: 
+    */
+}
+
+Hecho por el profe
+--------------------------------------------------------------}
+
+function tiene_MásDe_AñosEn_(nombreDado, cantidadDeAños, multiversoDado) {
+    /*
+    Obs: Es un recorrido de busqueda sin saber si esta 
+    sobre los universos del multiverso dado, buscando un universo en el que viva un habitante con 
+    nombre *nombreDado* y más de *cantidadDeAños* años.
+    La subtarea del recorrido es:
+    tiene_MásDe_AñosEnElUniverso_
+    */
+
+function tiene_MásDe_AñosEnElUniverso_() {
+    /*
+    Obs: Es un recorrido de busqueda sin saber si esta 
+    sobre las galaxias del universo dado, usando como 
+    subtarea del recorrido:
+    tiene_MásDe_AñosEnLaGalaxia_
+    */
+}
+
+function tiene_MásDe_AñosEnLaGalaxia_() {
+    /*
+    Obs: Es un recorrido de busqueda sin saber si esta 
+    sobre los planetas de la galaxia dada, usando como 
+    subtarea del recorrido:
+    tiene_MásDe_AñosEnElPlaneta_ 
+    */
+}
