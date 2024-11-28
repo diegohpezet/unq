@@ -1,0 +1,336 @@
+type JuegoOlimpico is record {
+    /*
+    PROPÓSITO:  Modelar un juego olimpico
+    INV. REP. : 
+        * **disciplinas** no tiene dos disciplinas con el mismo nombre.
+        * **delegaciones** no tiene dos delegaciones del mismo pais.
+        * No hay dos atletas con el mismo número de atleta entre todos los atletas
+        de todas las delegaciones.
+    */
+    field   sede            //  String
+    field   año             //  Número
+    field   delegaciones	//  [Delegación]
+    field   disciplina      //  [Disciplina]
+}
+type Disciplina is record {
+    /*
+    PROPÓSITO: Modelar una disciplina deportiva.
+    INV. REP.:
+        * **nombre** no es un string vacío.
+    */
+    field   nombre      //String
+    field   categoría   //Categoría
+    field   yaFinalizo  //Booleano
+}
+type Categoria is variant {
+    /*
+    PROPOSITO: Modelar las distintas categorías de disciplina.
+    */
+    case    Atletismo   {}
+    case    Gimnasia    {}
+    case    Equipo      {}
+    case    Acuático    {}
+    case    Otros       {}
+}
+type Medalla is variant {
+    /*
+    PROPOSITO: Modelar los distintos tipos de medella entregados
+    */
+    case    Oro         {}
+    case    Plata       {}
+    case    Bronce      {}
+}
+type Delegacion is record {
+    /*
+    PROPOSITO: Modelar la delegación de deportistas de un pais.
+    INV. REP.: 
+        *   **pais** no es un string vacío
+        *   **atletas** no está vacía
+        *   **atletas** no tiene dos atletas con el mismo número
+    */
+    field   país        // String
+    field   atletas     // [Atleta]
+}
+type    Atleta is record {
+    /*
+    PROPOSITO: Modelar atleta olímpico.
+    INV. REP. : 
+        * **númeroDeAtleta** es mayor a cero
+        * **nombre** no es un string vacío
+        * **disciplinas** no está vacía
+    */
+    field   numeroDeAtleta      // Número
+    field   nombre              // String
+    field   disciplinas         // [String]
+}
+//primitiva:
+function ganadorDeMedallaDe_En_(medalla, disciplina) {
+    /*
+        PROPÓSITO:  Describe el número del atleta que ganó la medalla de **medalla**
+                    en la disciplina **disciplina**
+        PARÁMETROS:
+            * medalla:      Medalla
+            * disciplina:   Disciplina
+        TIPO: Atleta
+        PRECONDICIONES:
+            * La competencia de esa disciplina ya ha finalizado
+    */
+}
+//////////////////////////////////////////////////////////////////// EJERCICIO 1 /////////////////////////////////////////////////////////////////
+Se pide implementar paísLiderDelMedalleroEn_(juegoOlímpico) que describa el nombre del país de la delegación 
+que lleva ganado más Oros en el juego olímpico, en caso de empate definen las medallas de plata y en caso de 
+nuevo empate las de bronce. Si aún así hubiera empate, decribe cualquiera de las delegaciones.
+
+function paisLiderDelMedalleroEn_(juegoOlímpico) {
+/*
+    PROPOSITO: Describe el nombre del país de la delegación que lleva ganado más Oros en el juego olímpico. En caso de empate definen las medallas de plata y en caso de nuevo empate devinen las de bronce. En caso de que tengan exactamente la misma cantidad de medallas de todos los materiales, describe cualquiera
+    PARAMETROS:
+        * juegoOlímpico: JuegoOlimpico - juego olímpico del cual obtener el país lider en medalleros
+    TIPO: String
+    PRECONDICION: Debe haber al menos una delegación en **juegoOlímpico**
+    OBSERVACIÓN: 
+        * Es un recorrido de máximos por medallas de un país en los juegos olímpicos que determina el país con más medallas de oro, plata y/o bronce
+        * El país lider del medallero es aquella delegación con mas medallas de mayor tier
+*/
+    delegacionLiderDelMedalleroHastaAhora := primero(delegaciones(juegoOlímpico))
+    foreach delegacion in resto(delegaciones(juegoOlímpico)) {
+        paisLiderDelMedalleroHastaAhora := delegacionMasMedalleraEntre_Y_En_(delegacionLiderDelMedalleroHastaAhora, delegacion, juegoOlimpico)
+    }
+    
+    return (pais(delegacionLiderDelMedalleroHastaAhora))
+}
+
+function delegacionMasMedalleraEntre_Y_En_(delegacion1, delegacion2, juegoOlimpico) {
+/*
+    PROPOSITO: Describe la delegacion mas medallera entre las delegaciones dadas por parámetros. En caso de ser igual de medalleras, describe cualquiera
+    PARAMETROS:
+        * delegacion1: Delegacion - delegación a comparar
+        * delegacion2: Delegacion - delegación a comparar
+    TIPO: Delegacion
+    PRECONDICION: Ninguna
+*/
+    return (
+        choose delegacionConMasMedallasDe_Entre_Y_En_(Oro, delegacion1, delegacion2, juegoOlimpico) when (
+            cantidadDeMedallasDe_De_En_(Oro, delegacion1, juegoOlimpico) /= cantidadDeMedallasDe_De_En_(Oro, delegacion1, juegoOlimpico)
+        ) 
+        
+        delegacionConMasMedallasDe_Entre_Y_En_(Plata, delegacion1, delegacion2, juegoOlimpico) when (
+            cantidadDeMedallasDe_De_En_(Plata, delegacion1, juegoOlimpico) /= cantidadDeMedallasDe_De_En_(Plata, delegacion1, juegoOlimpico)
+        )
+        
+        delegacionConMasMedallasDe_Entre_Y_En_(Bronce, delegacion1, delegacion2, juegoOlimpico) otherwise     // Si son iguales ya de por si devuelve delegacion2
+    )
+}
+
+function delegacionConMasMedallasDe_Entre_Y_En_(tipoMedalla, delegacion1, delegacion2, juegoOlimpico) {
+/*
+    PROPOSITO: Describe la delegación con mas medallas del tipo dado entre las delegaciones dadas
+    PARAMETROS:
+        * tipoMedalla: Medalla - medalla a evaluar
+        * delegacion1: Delegacion - delegación a comparar
+        * delegacion2: Delegacion - delegación a comparar
+    TIPO: Delegacion
+    PRECONDICION: Las delegaciones no deben tener la misma cantidad de medallas del tipo dado
+*/
+    return (
+        choose delegacion1 when (cantidadDeMedallasDe_De_En_(tipoMedalla, delegacion1, juegoOlimpico) > cantidadDeMedallasDe_De_En_(tipoMedalla, delegacion2, juegoOlimpico))
+               delegacion2 otherwise
+    )
+}
+
+function cantidadDeMedallasDe_De_En_(tipoMedalla, delegacion, juegoOlimpico) {
+/*
+    PROPOSITO: Describe la cantidad de medallas del tipo dado en que tiene la delegacion dada en el juego olimpico dado
+    PARAMETROS: 
+        * tipoMedalla: Medalla
+        * delegacion: Delegacion
+        * juegoOlimpico
+    TIPO: Numero
+    PRECONDICION: Ninguna
+    OBSERVACION: Es unrecorrido de acumulacion por disciplinas en 
+*/
+    cantidadDeMedallasHastaAhora := 0
+    foreach disciplina in disciplinasFinalizadasDe_(juegoOlimpico) {
+        cantidadDeMedallasHastaAhora := cantidadDeMedallasHastaAhora + cantidadDeMedallasDe_En_Para_(tipoMedalla, delegacion, juegoOlimpico)
+    }
+    
+    return (cantidadDeMedallasHastaAhora)
+}
+
+function disciplinasFinalizadasDe_(juegoOlimpico) {
+/*
+    PROPOSITO: Describe las disciplinas finalizadas del juego olímpico dado
+    PARAMETROS:
+        * juegoOlimpico: JuegoOlimpico
+    TIPO: [Disciplina]
+    PRECONDICION: Ninguna
+    OBSERVACION: Es un recorrido de filtrado por disciplinas de un juego olímpico que devuelve las disciplinas que ya finalizaron
+*/
+    disciplinasFinalizadas := []
+    foreach disciplina in disciplina(juegoOlimpico){
+        disciplinasFinalizadas := disciplinasFinalizadas ++ [singular_Si_(disciplina, yaFinalizo(disciplina)]
+    }
+    
+    return (disciplinasFinalizadas)
+}
+
+function cantidadDeMedallasDe_En_Para_(tipoMedalla, delegacion, juegoOlimpico) {
+/*
+    PROPOSITO: Describe la cantidad de medallas del tipo dado que tiene la delegación dada en el juego olímpico establecido
+    PARAMETROS:
+        * tipoMedalla: Medalla
+        * delegacion: Delegacion
+        * juegoOlimpico: JuegoOlimpico
+    TIPO: Numero
+    PRECONDICION: Ninguna
+    OBSERVACION: Es un recorrido de acumulacion por atletas de una delegación que se incrementa por cada medalla del tipo dado en su posesión
+*/
+    cantidadDeMedallasDeLaDelegacion := 0
+    foreach atleta in atletas(delegacion) {
+        cantidadDeMedallasDeLaDelegacion := cantidadDeMedallasDeLaDelegacion + cantidadDeMedallasDe_DelAtleta_En_(tipoMedalla, atleta, juegoOlimpico)
+    }
+    
+    return (cantidadDeMedallasDelAtleta)
+}
+
+function cantidadDeMedallasDe_DelAtleta_En_(tipoMedalla, atleta, juegoOlimpico) {
+/*
+    PROPOSITO: Describe la cantida de medallas del tipo dado de un atleta dado en los juegos olímpicos establecidos
+    PARAMETROS: 
+        * tipoMedalla: Medalla
+        * atleta: Atleta
+        * juegoOlimpico: JuegoOlimpico
+    TIPO: Numero
+    PRECONDICION: Ninguna
+    OBSERVACION: Es un recorrido de acumulacion por disciplinas de un atleta que se incrementa en uno por cada medalla del tipo dado que haya ganado 
+*/
+    cantidadDeMedallasDelAtleta := 0
+    foreach disciplina in disciplinas(atleta) {
+        cantidadDeMedallasDelAtleta := cantidadDeMedallasDelAtleta + unoSi_CeroSiNo(ganadorDeMedallaDe_En_(tipoMedalla, disciplina) == atleta)
+    }
+    
+    return (cantidadDeMedallasDelAtleta)
+}
+
+//////////////////////////////////////////////////////////////////// EJERCICIO 2 /////////////////////////////////////////////////////////////////
+Implemetar la función juegoOlímpico_LuegoDeAgregarDisciplina_AAtletaNro_(juegoOlímpico, disciplina, nroDeAtleta) que dado un juegoOlímpico, una disciplina
+y el número de un atleta que seguro participa de los juegos dados, describa un Juego Olímpico donde el atleta con ese número compite también en
+la disciplina dada. Si el atleta ya practicaba esa disciplina se describe el juego olímpico sin cambios.
+
+Para resolver este problema puede hacer uso de la primitiva reemplazarEnAtletas_AtletaConNúmero_Por_ , que dada una lista de atletas,
+un número de atleta y un atleta, reemplaza en la lista dada el atleta cuyo número coincide con el número dado por el nuevo atleta dado.
+
+program {
+    juegoOlimpico := JuegoOlimpico(sede, año, delegaciones, disciplina <- [hockey, carrera, voley])
+    
+    hockey := Disciplina(nombre := "Hockey", categoria := "Femenino", yaFinalizo := False)
+    carrera := Disciplina(nombre := "Carrera", categoria := "100m", yaFinalizo := True)
+    voley := Disciplina(nombre := "Voley", categoria := "Mixto", yaFinalizo := True)
+}
+
+function juegoOlímpico_LuegoDeAgregarDisciplina_AAtletaNro_(juegoOlimpico, disciplina, nroDeAtleta) {
+/*
+    PROPOSITO: Describe un Juego Olímpico donde el atleta con el numero dado compite también en la disciplina dada. Si el atleta ya practicaba esa disciplina se describe el juego olímpico sin cambios.
+    PARAMETROS:
+        * juegoOlímpico: JuegoOlimpico
+        * disciplina: Disciplina
+        * nroDeAtleta: Número
+    TIPO: JuegoOlimpico
+    PRECONDICION:
+*/
+    return (
+        JuegoOlimpico(
+                juegoOlimpico | delegaciones <- delegacionesDe_ConAtleta_ModificadoConDisciplina_(juegoOlimpico, nroDeAtleta, disciplina)
+        )
+    )
+}
+
+function delegacionesDe_ConAtleta_ModificadoConDisciplina_(juegoOlimpico, nroDeAtleta, disciplina) {
+/*
+    PROPOSITO: Describe las delegaciones que participan de un juego olímpico dado, pero con el atleta con el nro dado con la disciplina dada agregada
+    PARAMETROS:
+        * juegoOlimpico: JuegoOlimpico
+        * nroDeAtleta: Numero
+        * disciplina: Disciplina
+    TIPO: [Delegacion]
+    PRECONDICION: Debe existir un atleta con el numero dado en las delegaciones del juego olímpico
+    OBSERVACION: Es un recorrido de transformacion por atletas en una delegacion de un juego olímpico que modifica al atleta desaedo agregandole la disciplina dada
+*/
+    delegacionesHastaAhora := []
+    foreach delegacion in delegaciones(juegoOlimpico) {
+        delegacionesHastaAhora := Delegacion(
+            delegacion | 
+            atletas <- reemplazarEnAtletas_AtletaConNúmero_Por_(
+                            atletas(delegacion), 
+                            nroDeAtleta, 
+                            Atleta(atletaNro_(nroAtleta) | disciplinas <- disciplinas(atletaNro_(nroAtleta)) ++ [disciplina])
+                        )
+        )
+    }
+    
+    return (delegacionesHastaAhora)
+}
+
+function atletaNro_(nroAtleta)
+
+function reemplazarEnAtletas_AtletaConNúmero_Por_(listaAtletas, nroDeAtleta, atletaNuevo) {
+/*
+    PROPOSITO: Reemplaza en la lista dada el atleta cuyo número coincide con el número dado por el nuevo atleta dado
+    PARAMETROS:
+        * listaAtletas: [Atleta]
+        * nroDeAtleta: Número
+        * atletaNuevo: Atleta
+    TIPO: [Atleta]
+    PRECONDICION: Ninguna
+*/
+    atletasHastaAhora := []
+    foreach atleta in listaAtletas {
+        atletasHastaAhora := atletasHastaAhora ++ [choose atletaNuevo when (nroDeAtleta == numeroDeAtleta) atleta otherwise]    
+    }
+    
+    return(atletasHastaAhora)
+}
+
+
+//////////////////////////////////////////////////////////////////// EJERCICIO 3 /////////////////////////////////////////////////////////////////
+Dada la siguiente función cuyo contrato es correcto 
+function participa_EnLaDisciplina_(delegación, disciplina) {
+    /*
+    PROPOSITO: Indica si la delegación **delegación** posee al menos un atleta que participa en la
+                disciplina **disciplina**.
+    PRECONDICIONES: Ninguna.
+    PARÁMETROS:
+        * delegación:   Delegación
+        *disciplina:    Disciplina
+    TIPO: Booleano
+    OBSERVACIONES: Recorrido de búsqueda sobre una delegación dada por parámetro.
+    */
+    seEncuentraDisciplina:= False
+    foreach atleta in atletas(delegación) {
+        seEncuentraDisciplina:= compite_En_(atleta, disciplina)
+    }
+    return (
+        seEncuentraDisciplina
+    )
+}
+function compite_En_(atleta, disciplina) {
+    /*
+        PROPÓSITO:  Indica si el atleta **atleta** participa en la disciplina **disciplina**
+        PARÁMETROS:
+            * atleta:       Atleta
+            * disciplina:   Disciplina
+        TIPO: Booleano
+        PRECONDICIONES:
+            * Ninguna
+    */
+    return (
+        contiene_A_(disciplinas(atleta), disciplina)
+    )
+}
+
+Se pide que determine si:
+(a) La solución es correcta (soluciona el problema planteado en el propósito o no), y 
+(b) Si es adecuada (sigue los buenos criterios de programación vistos en la materia o no)
+JUSTIFIQUE sus respuestas ( la justificación no puede tener más de 5 renglones).
+
+- La solucion no soluciona el problema ya que la función `compite_en_(atleta, disciplina)` se rompe al comparar un dato del tipo String con otro del tipo Disciplina. Incluso si cumpliese y lo solucionase, el recorrido planteado en la funcion `participa_EnLaDisciplina_(delegación, disciplina)` no es adecuada pues un recorrido de búsqueda que usa foreach puede llegar a hacer repeticiones innecesarias que se solucionarian empleando un while y una condicion de cierre del loop
