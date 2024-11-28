@@ -1,0 +1,133 @@
+type JuegoOlímpico is record {
+    /*
+    PROPÓSITO:  Modelar un juego olimpico
+    INV. REP. : 
+        * **disciplinas** no tiene dos disciplinas con el mismo nombre.
+        * **delegaciones** no tiene dos delegaciones del mismo pais.
+        * No hay dos atletas con el mismo número de atleta entre todos los atletas
+        de todas las delegaciones.
+    */
+    field   sede            //  String
+    field   año             //  Número
+    field   delegaciones	//  [Delegación]
+    field   disciplina      //  [Disciplina]
+}
+type Disciplina is record {
+    /*
+    PROPÓSITO: Modelar una disciplina deportiva.
+    INV. REP.:
+        * **nombre** no es un string vacío.
+    */
+    field   nombre      //String
+    field   categoría   //Categoría
+    field   yaFinalizó  //Booleano
+}
+type Categoría is variant {
+    /*
+    PROPOSITO: Modelar las distintas categorías de disciplina.
+    */
+    case    Atletismo   {}
+    case    Gimnasia    {}
+    case    Equipo      {}
+    case    Acuático    {}
+    case    Otros       {}
+}
+type Medalla is variant {
+    /*
+    PROPOSITO: Modelar los distintos tipos de medella entregados
+    */
+    case    Oro         {}
+    case    Plata       {}
+    case    Bronce      {}
+}
+type Delegación is record {
+    /*
+    PROPOSITO: Modelar la delegación de deportistas de un pais.
+    INV. REP.: 
+        *   **pais** no es un string vacío
+        *   **atletas** no está vacía
+        *   **atletas** no tiene dos atletas con el mismo número
+    */
+    field   país        // String
+    field   atletas     // [Atleta]
+}
+type    Atleta is record {
+    /*
+    PROPOSITO: Modelar atleta olímpico.
+    INV. REP. : 
+        * **númeroDeAtleta** es mayor a cero
+        * **nombre** no es un string vacío
+        * **disciplinas** no está vacía
+    */
+    field   númeroDeAtleta      // Número
+    field   nombre              // String
+    field   disciplinas         // [String]
+}
+//primitiva:
+function ganadorDeMedallaDe_En_(medalla, disciplina) {
+    /*
+        PROPÓSITO:  Describe el número del atleta que ganó la medalla de **medalla**
+                    en la disciplina **disciplina**
+        PARÁMETROS:
+            * medalla:      Medalla
+            * disciplina:   Disciplina
+        TIPO: Atleta
+        PRECONDICIONES:
+            * La competencia de esa disciplina ya ha finalizado
+    */
+}
+//////////////////////////////////////////////////////////////////// EJERCICIO 1 /////////////////////////////////////////////////////////////////
+Se pide implementar paísLiderDelMedalleroEn_(juegoOlímpico) que describa el nombre del país de la delegación 
+que lleva ganado más Oros en el juego olímpico, en caso de empate definen las medallas de plata y en caso de 
+nuevo empate las de bronce. Si aún así hubiera empate, decribe cualquiera de las delegaciones.
+
+
+//////////////////////////////////////////////////////////////////// EJERCICIO 2 /////////////////////////////////////////////////////////////////
+Implemetar la función juegoOlímpico_LuegoDeAgregarDisciplina_AAtletaNro_(juegoOlímpico, disciplina, nroDeAtleta) que dado un juegoOlímpico, una disciplina
+y el número de un atleta que seguro participa de los juegos dados, describa un Juego Olímpico donde el atleta con ese número compite también en
+la disciplina dada. Si el atleta ya practicaba esa disciplina se describe el juego olímpico sin cambios.
+
+Para resolver este problema puede hacer uso de la primitiva reemplazarEnAtletas_AtletaConNúmero_Por_ , que dada una lista de atletas,
+un número de atleta y un atleta, reemplaza en la lista dada el atleta cuyo número coincide con el número dado por el nuevo atleta dado.
+
+
+//////////////////////////////////////////////////////////////////// EJERCICIO 3 /////////////////////////////////////////////////////////////////
+Dada la siguiente función cuyo contrato es correcto 
+function participa_EnLaDisciplina_(delegación, disciplina) {
+    /*
+    PROPOSITO: Indica si la delegación **delegación** posee al menos un atleta que participa en la
+                disciplina **disciplina**.
+    PRECONDICIONES: Ninguna.
+    PARÁMETROS:
+        * delegación:   Delegación
+        *disciplina:    Disciplina
+    TIPO: Booleano
+    OBSERVACIONES: Recorrido de búsqueda sobre una delegación dada por parámetro.
+    */
+    seEncuentraDisciplina:= False
+    foreach atleta in atletas(delegación) {
+        seEncuentraDisciplina:= compite_En_(atleta, disciplina)
+    }
+    return (
+        seEncuentraDisciplina
+    )
+}
+function compite_En_(atleta, disciplina) {
+    /*
+        PROPÓSITO:  Indica si el atleta **atleta** participa en la disciplina **disciplina**
+        PARÁMETROS:
+            * atleta:       Atleta
+            * disciplina:   Disciplina
+        TIPO: Booleano
+        PRECONDICIONES:
+            * Ninguna
+    */
+    return (
+        contiene_A_(disciplinas(atleta), disciplina)
+    )
+}
+
+Se pide que determine si:
+(a) La solución es correcta (soluciona el problema planteado en el propósito o no), y 
+(b) Si es adecuada (sigue los buenos criterios de programación vistos en la materia o no)
+JUSTIFIQUE sus respuestas ( la justificación no puede tener más de 5 renglones).
